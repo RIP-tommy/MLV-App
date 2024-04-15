@@ -863,6 +863,8 @@ int MainWindow::openMlv( QString fileName )
 #else
         new_MlvObject = initMlvObjectWithMcrawClip( fileName.toLatin1().data(), mlvOpenMode, &mlvErr, mlvErrMsg );
 #endif
+        ui->comboBoxUseCameraMatrix->setCurrentIndex(0);
+        on_comboBoxUseCameraMatrix_currentIndexChanged(0);
     }
     else
     {
