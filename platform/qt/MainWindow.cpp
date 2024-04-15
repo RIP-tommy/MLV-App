@@ -32,6 +32,8 @@
 #include <QColorDialog>
 #include <unistd.h>
 #include <math.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 #ifdef Q_OS_MACX
 #include "AvfLibWrapper.h"
@@ -420,6 +422,7 @@ void MainWindow::dropEvent(QDropEvent *event)
     if( event->mimeData()->urls().size() > 0 )
     {
         if( event->mimeData()->urls().at(0).path().endsWith( ".MLV", Qt::CaseInsensitive )
+         || event->mimeData()->urls().at(0).path().endsWith( ".MCRAW", Qt::CaseInsensitive )
          || event->mimeData()->urls().at(0).path().endsWith( ".FPM", Qt::CaseInsensitive )
          || event->mimeData()->urls().at(0).path().endsWith( ".COMMAND", Qt::CaseInsensitive ) )
         {
@@ -481,7 +484,7 @@ void MainWindow::openMlvSet( QStringList list )
         else
         {
             //Exit if not an MLV file or aborted
-            if( fileName == QString( "" ) || !fileName.endsWith( ".mlv", Qt::CaseInsensitive ) ) continue;
+            if( fileName == QString( "" ) && !(fileName.endsWith( ".mlv", Qt::CaseInsensitive ) || fileName.endsWith( ".mcraw", Qt::CaseInsensitive )) ) continue;
             importNewMlv( fileName );
         }
     }
@@ -665,11 +668,28 @@ int MainWindow::openMlvForPreview(QString fileName)
 {
     int mlvErr = MLV_ERR_NONE;
     char mlvErrMsg[256] = { 0 };
+
+    mlvObject_t * new_MlvObject;
+
+    if (fileName.endsWith( ".mcraw", Qt::CaseInsensitive))
+    {
 #ifdef Q_OS_UNIX
-    mlvObject_t * new_MlvObject = initMlvObjectWithClip( fileName.toUtf8().data(), MLV_OPEN_PREVIEW, &mlvErr, mlvErrMsg );
+        new_MlvObject = initMlvObjectWithMcrawClip( fileName.toUtf8().data(), MLV_OPEN_PREVIEW, &mlvErr, mlvErrMsg );
 #else
-    mlvObject_t * new_MlvObject = initMlvObjectWithClip( fileName.toLatin1().data(), MLV_OPEN_PREVIEW, &mlvErr, mlvErrMsg );
+        new_MlvObject = initMlvObjectWithMcrawClip( fileName.toLatin1().data(), MLV_OPEN_PREVIEW, &mlvErr, mlvErrMsg );
 #endif
+        ui->comboBoxUseCameraMatrix->setCurrentIndex(0);
+        on_comboBoxUseCameraMatrix_currentIndexChanged(0);
+    }
+    else
+    {
+#ifdef Q_OS_UNIX
+        new_MlvObject = initMlvObjectWithClip( fileName.toUtf8().data(), MLV_OPEN_PREVIEW, &mlvErr, mlvErrMsg );
+#else
+        new_MlvObject = initMlvObjectWithClip( fileName.toLatin1().data(), MLV_OPEN_PREVIEW, &mlvErr, mlvErrMsg );
+#endif
+    }
+
     if( mlvErr )
     {
         QMessageBox::critical( this, tr( "MLV Error" ), tr( "%1" ).arg( mlvErrMsg ), QMessageBox::Cancel, QMessageBox::Cancel );
@@ -826,11 +846,28 @@ int MainWindow::openMlv( QString fileName )
 
     int mlvErr = MLV_ERR_NONE;
     char mlvErrMsg[256] = { 0 };
+
+    mlvObject_t * new_MlvObject;
+
+    if (fileName.endsWith( ".mcraw", Qt::CaseInsensitive))
+    {
 #ifdef Q_OS_UNIX
-    mlvObject_t * new_MlvObject = initMlvObjectWithClip( fileName.toUtf8().data(), mlvOpenMode, &mlvErr, mlvErrMsg );
+        new_MlvObject = initMlvObjectWithMcrawClip( fileName.toUtf8().data(), mlvOpenMode, &mlvErr, mlvErrMsg );
 #else
-    mlvObject_t * new_MlvObject = initMlvObjectWithClip( fileName.toLatin1().data(), mlvOpenMode, &mlvErr, mlvErrMsg );
+        new_MlvObject = initMlvObjectWithMcrawClip( fileName.toLatin1().data(), mlvOpenMode, &mlvErr, mlvErrMsg );
 #endif
+        ui->comboBoxUseCameraMatrix->setCurrentIndex(0);
+        on_comboBoxUseCameraMatrix_currentIndexChanged(0);
+    }
+    else
+    {
+#ifdef Q_OS_UNIX
+        new_MlvObject = initMlvObjectWithClip( fileName.toUtf8().data(), mlvOpenMode, &mlvErr, mlvErrMsg );
+#else
+        new_MlvObject = initMlvObjectWithClip( fileName.toLatin1().data(), mlvOpenMode, &mlvErr, mlvErrMsg );
+#endif
+    }
+
     if( mlvErr )
     {
         QMessageBox::critical( this, tr( "MLV Error" ), tr( "%1" ).arg( mlvErrMsg ), QMessageBox::Cancel, QMessageBox::Cancel );
@@ -4434,6 +4471,9 @@ void MainWindow::setSliders(ReceiptSettings *receipt, bool paste)
     {
         //Init Temp read from the file when imported and loaded very first time completely
         setWhiteBalanceFromMlv( receipt );
+    }
+    if (isMcrawLoaded(m_pMlvObject)) {
+        receipt->setCamMatrixUsed(0);
     }
     ui->comboBoxUseCameraMatrix->setCurrentIndex( receipt->camMatrixUsed() );
     on_comboBoxUseCameraMatrix_currentIndexChanged( receipt->camMatrixUsed() );
