@@ -473,8 +473,8 @@ QGroupBox::indicator:checked:disabled {
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-1752</y>
-            <width>269</width>
+            <y>0</y>
+            <width>335</width>
             <height>5772</height>
            </rect>
           </property>
