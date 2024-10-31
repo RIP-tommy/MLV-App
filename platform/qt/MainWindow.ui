@@ -34,22 +34,22 @@
        </size>
       </property>
       <property name="contextMenuPolicy">
-       <enum>Qt::CustomContextMenu</enum>
+       <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
       </property>
       <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
+       <enum>QFrame::Shape::NoFrame</enum>
       </property>
       <property name="frameShadow">
-       <enum>QFrame::Plain</enum>
+       <enum>QFrame::Shadow::Plain</enum>
       </property>
       <property name="lineWidth">
        <number>0</number>
       </property>
       <property name="verticalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOff</enum>
+       <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
       </property>
       <property name="horizontalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOff</enum>
+       <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
       </property>
       <property name="backgroundBrush">
        <brush brushstyle="SolidPattern">
@@ -61,7 +61,7 @@
        </brush>
       </property>
       <property name="dragMode">
-       <enum>QGraphicsView::ScrollHandDrag</enum>
+       <enum>QGraphicsView::DragMode::ScrollHandDrag</enum>
       </property>
      </widget>
     </item>
@@ -71,7 +71,7 @@
        <number>1</number>
       </property>
       <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+       <enum>Qt::Orientation::Horizontal</enum>
       </property>
      </widget>
     </item>
@@ -115,6 +115,9 @@
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -122,6 +125,9 @@
      <width>1200</width>
      <height>24</height>
     </rect>
+   </property>
+   <property name="nativeMenuBar">
+    <bool>false</bool>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
@@ -342,7 +348,7 @@
     <bool>false</bool>
    </property>
    <property name="allowedAreas">
-    <set>Qt::RightDockWidgetArea</set>
+    <set>Qt::DockWidgetArea::RightDockWidgetArea</set>
    </property>
    <property name="windowTitle">
     <string>Edit</string>
@@ -404,7 +410,7 @@
             </size>
            </property>
            <property name="contextMenuPolicy">
-            <enum>Qt::CustomContextMenu</enum>
+            <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
            </property>
            <property name="lineWidth">
             <number>0</number>
@@ -419,7 +425,7 @@
             <bool>true</bool>
            </property>
            <property name="alignment">
-            <set>Qt::AlignCenter</set>
+            <set>Qt::AlignmentFlag::AlignCenter</set>
            </property>
           </widget>
          </item>
@@ -446,19 +452,19 @@ QGroupBox::indicator:checked:disabled {
 }</string>
          </property>
          <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
+          <enum>QFrame::Shape::NoFrame</enum>
          </property>
          <property name="frameShadow">
-          <enum>QFrame::Plain</enum>
+          <enum>QFrame::Shadow::Plain</enum>
          </property>
          <property name="lineWidth">
           <number>0</number>
          </property>
          <property name="verticalScrollBarPolicy">
-          <enum>Qt::ScrollBarAlwaysOn</enum>
+          <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOn</enum>
          </property>
          <property name="horizontalScrollBarPolicy">
-          <enum>Qt::ScrollBarAlwaysOff</enum>
+          <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
          </property>
          <property name="widgetResizable">
           <bool>true</bool>
@@ -468,7 +474,7 @@ QGroupBox::indicator:checked:disabled {
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>269</width>
+            <width>335</width>
             <height>5772</height>
            </rect>
           </property>
@@ -545,7 +551,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -734,7 +740,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -967,7 +973,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -988,7 +994,7 @@ QGroupBox::indicator:checked:disabled {
                    <item>
                     <spacer name="horizontalSpacer_62">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -1472,7 +1478,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -1614,7 +1620,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -1732,7 +1738,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -1765,10 +1771,10 @@ QGroupBox::indicator:checked:disabled {
                    <item>
                     <spacer name="horizontalSpacer_32">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Fixed</enum>
+                      <enum>QSizePolicy::Policy::Fixed</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -2167,7 +2173,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -2202,7 +2208,7 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                      <property name="maximum">
                       <number>9999</number>
@@ -2217,7 +2223,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -2311,7 +2317,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -2338,10 +2344,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="2">
                     <spacer name="horizontalSpacer_27">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -2359,16 +2365,16 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="contextMenuPolicy">
-                      <enum>Qt::CustomContextMenu</enum>
+                      <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -2402,7 +2408,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -2435,10 +2441,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_26">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -2456,16 +2462,16 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="contextMenuPolicy">
-                      <enum>Qt::CustomContextMenu</enum>
+                      <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -2499,7 +2505,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -2580,10 +2586,10 @@ QGroupBox::indicator:checked:disabled {
                     </font>
                    </property>
                    <property name="focusPolicy">
-                    <enum>Qt::ClickFocus</enum>
+                    <enum>Qt::FocusPolicy::ClickFocus</enum>
                    </property>
                    <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                    </property>
                   </widget>
                  </item>
@@ -2634,10 +2640,10 @@ QGroupBox::indicator:checked:disabled {
                     </font>
                    </property>
                    <property name="focusPolicy">
-                    <enum>Qt::ClickFocus</enum>
+                    <enum>Qt::FocusPolicy::ClickFocus</enum>
                    </property>
                    <property name="alignment">
-                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                    <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                    </property>
                   </widget>
                  </item>
@@ -2828,10 +2834,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -2849,16 +2855,16 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="contextMenuPolicy">
-                      <enum>Qt::CustomContextMenu</enum>
+                      <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>0.00</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -2892,7 +2898,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -2918,10 +2924,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_28">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -2939,13 +2945,13 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -2979,7 +2985,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -3005,10 +3011,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_58">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -3026,13 +3032,13 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>0.75</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -3066,7 +3072,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>75</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -3078,7 +3084,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -3137,7 +3143,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>6000</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -3156,10 +3162,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="3">
                     <spacer name="horizontalSpacer_2">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -3177,13 +3183,13 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>6000 K</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -3220,10 +3226,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_3">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -3241,13 +3247,13 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -3281,7 +3287,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -3293,7 +3299,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -3317,10 +3323,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_30">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -3338,13 +3344,13 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -3378,7 +3384,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -3404,10 +3410,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_29">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -3425,13 +3431,13 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -3465,7 +3471,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -3491,10 +3497,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_4">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -3512,13 +3518,13 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -3552,7 +3558,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -3564,7 +3570,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -3588,10 +3594,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_5">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -3609,13 +3615,13 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>20</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -3646,7 +3652,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>20</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -3672,10 +3678,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_6">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -3693,13 +3699,13 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>70</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -3730,7 +3736,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>70</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -3756,10 +3762,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_7">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -3777,13 +3783,13 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -3811,7 +3817,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>100</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -3837,10 +3843,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_8">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -3858,13 +3864,13 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>50</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -3895,7 +3901,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>50</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -3921,10 +3927,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_9">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -3942,13 +3948,13 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -3976,7 +3982,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>100</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -3988,7 +3994,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -4048,17 +4054,17 @@ QGroupBox::indicator:checked:disabled {
                       <number>100</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
                    <item row="1" column="2">
                     <spacer name="horizontalSpacer_16">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -4076,13 +4082,13 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -4101,23 +4107,23 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="2">
                     <spacer name="horizontalSpacer_17">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -4166,7 +4172,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>100</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -4178,7 +4184,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -4202,7 +4208,7 @@ QGroupBox::indicator:checked:disabled {
                    <item>
                     <spacer name="horizontalSpacer_40">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -4282,7 +4288,7 @@ QGroupBox::indicator:checked:disabled {
                       <bool>true</bool>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -4417,7 +4423,7 @@ QGroupBox::indicator:checked:disabled {
                     <item>
                      <spacer name="horizontalSpacer_35">
                       <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
+                       <enum>Qt::Orientation::Horizontal</enum>
                       </property>
                       <property name="sizeHint" stdset="0">
                        <size>
@@ -4501,7 +4507,7 @@ QGroupBox::indicator:checked:disabled {
                     <string>Warning: Having creative adjustments and log profile enabled may not give logarithmic output!</string>
                    </property>
                    <property name="layoutDirection">
-                    <enum>Qt::LeftToRight</enum>
+                    <enum>Qt::LayoutDirection::LeftToRight</enum>
                    </property>
                    <property name="text">
                     <string>Allow Creative Adjustments</string>
@@ -4698,10 +4704,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_Gamma">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -4722,7 +4728,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>1.00</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -4753,7 +4759,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>100</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -4765,7 +4771,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -4908,7 +4914,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -5016,10 +5022,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_10">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -5040,7 +5046,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -5068,7 +5074,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -5094,10 +5100,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_57">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -5118,7 +5124,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -5146,7 +5152,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -5171,7 +5177,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -5199,17 +5205,17 @@ QGroupBox::indicator:checked:disabled {
                       <number>1</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_11">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -5242,7 +5248,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -5324,10 +5330,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_31">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -5348,7 +5354,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -5376,7 +5382,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -5388,7 +5394,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -5400,10 +5406,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_46">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -5424,7 +5430,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -5467,7 +5473,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -5504,7 +5510,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -5532,17 +5538,17 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_44">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -5570,7 +5576,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>40</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -5613,17 +5619,17 @@ QGroupBox::indicator:checked:disabled {
                       <number>40</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_47">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -5641,7 +5647,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -5673,7 +5679,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -5701,17 +5707,17 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_48">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -5751,7 +5757,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -5779,17 +5785,17 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_63">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -5831,10 +5837,10 @@ QGroupBox::indicator:checked:disabled {
               <item row="0" column="0">
                <widget class="QFrame" name="frameHsl">
                 <property name="frameShape">
-                 <enum>QFrame::NoFrame</enum>
+                 <enum>QFrame::Shape::NoFrame</enum>
                 </property>
                 <property name="frameShadow">
-                 <enum>QFrame::Plain</enum>
+                 <enum>QFrame::Shadow::Plain</enum>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_5">
                  <property name="spacing">
@@ -5872,7 +5878,7 @@ QGroupBox::indicator:checked:disabled {
                    <item>
                     <spacer name="horizontalSpacer_45">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -5944,7 +5950,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>Place holder for curves</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -5956,7 +5962,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -5980,7 +5986,7 @@ QGroupBox::indicator:checked:disabled {
                    <item>
                     <spacer name="horizontalSpacer_41">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -6052,7 +6058,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>Place holder for curves</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6064,7 +6070,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -6088,7 +6094,7 @@ QGroupBox::indicator:checked:disabled {
                    <item>
                     <spacer name="horizontalSpacer_42">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -6160,7 +6166,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>Place holder for curves</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6172,7 +6178,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -6196,7 +6202,7 @@ QGroupBox::indicator:checked:disabled {
                    <item>
                     <spacer name="horizontalSpacer_59">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -6242,7 +6248,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>Place holder for curves</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6312,7 +6318,7 @@ QGroupBox::indicator:checked:disabled {
                       <bool>false</bool>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6324,16 +6330,16 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="contextMenuPolicy">
-                      <enum>Qt::CustomContextMenu</enum>
+                      <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6367,17 +6373,17 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
                    <item row="0" column="3">
                     <spacer name="horizontalSpacer_36">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -6402,10 +6408,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_38">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -6437,10 +6443,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_37">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -6458,16 +6464,16 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="contextMenuPolicy">
-                      <enum>Qt::CustomContextMenu</enum>
+                      <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6501,7 +6507,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -6566,7 +6572,7 @@ QGroupBox::indicator:checked:disabled {
                    <item>
                     <spacer name="horizontalSpacer_18">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -6600,14 +6606,14 @@ QGroupBox::indicator:checked:disabled {
                       <string>ColorWheel</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
                    <item>
                     <spacer name="horizontalSpacer_19">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -6632,7 +6638,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>Y</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6647,7 +6653,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>R</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6662,7 +6668,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>G</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6677,7 +6683,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>B</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6692,7 +6698,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0.00</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6707,7 +6713,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0.00</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6722,7 +6728,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0.00</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6737,7 +6743,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0.00</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6749,7 +6755,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -6770,7 +6776,7 @@ QGroupBox::indicator:checked:disabled {
                    <item>
                     <spacer name="horizontalSpacer_21">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -6804,14 +6810,14 @@ QGroupBox::indicator:checked:disabled {
                       <string>ColorWheel</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
                    <item>
                     <spacer name="horizontalSpacer_20">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -6836,7 +6842,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>Y</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6851,7 +6857,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>R</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6866,7 +6872,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>G</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6881,7 +6887,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>B</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6896,7 +6902,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0.00</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6911,7 +6917,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0.00</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6926,7 +6932,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0.00</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6941,7 +6947,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0.00</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -6953,7 +6959,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -6974,7 +6980,7 @@ QGroupBox::indicator:checked:disabled {
                    <item>
                     <spacer name="horizontalSpacer_23">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -7008,14 +7014,14 @@ QGroupBox::indicator:checked:disabled {
                       <string>ColorWheel</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
                    <item>
                     <spacer name="horizontalSpacer_22">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -7040,7 +7046,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>Y</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -7055,7 +7061,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>R</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -7070,7 +7076,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>G</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -7085,7 +7091,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>B</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -7100,7 +7106,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0.00</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -7115,7 +7121,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0.00</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -7130,7 +7136,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0.00</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -7145,7 +7151,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0.00</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -7157,7 +7163,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -7178,7 +7184,7 @@ QGroupBox::indicator:checked:disabled {
                    <item>
                     <spacer name="horizontalSpacer_25">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -7212,14 +7218,14 @@ QGroupBox::indicator:checked:disabled {
                       <string>ColorWheel</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
                    <item>
                     <spacer name="horizontalSpacer_24">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -7244,7 +7250,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>Y</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -7259,7 +7265,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>R</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -7274,7 +7280,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>G</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -7289,7 +7295,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>B</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -7304,7 +7310,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0.00</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -7319,7 +7325,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0.00</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -7334,7 +7340,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0.00</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -7349,7 +7355,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0.00</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignCenter</set>
+                      <set>Qt::AlignmentFlag::AlignCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -7420,7 +7426,7 @@ QGroupBox::indicator:checked:disabled {
                    <item>
                     <spacer name="horizontalSpacer_14">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -7474,10 +7480,10 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="focusPolicy">
-                      <enum>Qt::ClickFocus</enum>
+                      <enum>Qt::FocusPolicy::ClickFocus</enum>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                      <property name="minimum">
                       <number>-1000</number>
@@ -7510,10 +7516,10 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="focusPolicy">
-                      <enum>Qt::ClickFocus</enum>
+                      <enum>Qt::FocusPolicy::ClickFocus</enum>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                      <property name="minimum">
                       <number>-1000</number>
@@ -7576,7 +7582,7 @@ QGroupBox::indicator:checked:disabled {
                    <item>
                     <spacer name="horizontalSpacer_13">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -7612,10 +7618,10 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="focusPolicy">
-                      <enum>Qt::ClickFocus</enum>
+                      <enum>Qt::FocusPolicy::ClickFocus</enum>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                      <property name="minimum">
                       <number>1</number>
@@ -7633,7 +7639,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -7660,10 +7666,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_12">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -7684,7 +7690,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>0.00</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -7715,7 +7721,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -7744,10 +7750,10 @@ QGroupBox::indicator:checked:disabled {
                 <item row="0" column="1">
                  <spacer name="horizontalSpacer_33">
                   <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                   <enum>Qt::Orientation::Horizontal</enum>
                   </property>
                   <property name="sizeType">
-                   <enum>QSizePolicy::Maximum</enum>
+                   <enum>QSizePolicy::Policy::Maximum</enum>
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
@@ -7765,13 +7771,13 @@ QGroupBox::indicator:checked:disabled {
                    </font>
                   </property>
                   <property name="layoutDirection">
-                   <enum>Qt::RightToLeft</enum>
+                   <enum>Qt::LayoutDirection::RightToLeft</enum>
                   </property>
                   <property name="text">
                    <string>0</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
@@ -7805,7 +7811,7 @@ QGroupBox::indicator:checked:disabled {
                    <number>0</number>
                   </property>
                   <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                   <enum>Qt::Orientation::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
@@ -7873,10 +7879,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_34">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -7894,16 +7900,16 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="contextMenuPolicy">
-                      <enum>Qt::CustomContextMenu</enum>
+                      <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>100</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -7937,7 +7943,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>100</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -8211,10 +8217,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_15">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -8232,16 +8238,16 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="contextMenuPolicy">
-                      <enum>Qt::CustomContextMenu</enum>
+                      <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>100</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -8275,7 +8281,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>100</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -8346,10 +8352,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_39">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -8367,16 +8373,16 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="contextMenuPolicy">
-                      <enum>Qt::CustomContextMenu</enum>
+                      <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -8410,7 +8416,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -8424,10 +8430,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_43">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -8467,7 +8473,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>20</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -8479,16 +8485,16 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="contextMenuPolicy">
-                      <enum>Qt::CustomContextMenu</enum>
+                      <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>20</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -8514,10 +8520,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_56">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -8557,7 +8563,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -8569,16 +8575,16 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="contextMenuPolicy">
-                      <enum>Qt::CustomContextMenu</enum>
+                      <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -8602,7 +8608,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -8614,10 +8620,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_55">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -8635,16 +8641,16 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="contextMenuPolicy">
-                      <enum>Qt::CustomContextMenu</enum>
+                      <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>0.0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -8678,7 +8684,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -8716,10 +8722,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_54">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -8737,16 +8743,16 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="contextMenuPolicy">
-                      <enum>Qt::CustomContextMenu</enum>
+                      <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>0.0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -8780,7 +8786,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -8792,7 +8798,7 @@ QGroupBox::indicator:checked:disabled {
                     <string notr="true">background-color: rgb(115, 115, 115);</string>
                    </property>
                    <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
+                    <enum>Qt::Orientation::Horizontal</enum>
                    </property>
                   </widget>
                  </item>
@@ -8816,10 +8822,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_60">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -8837,16 +8843,16 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="contextMenuPolicy">
-                      <enum>Qt::CustomContextMenu</enum>
+                      <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>0</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -8880,7 +8886,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>0</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -8906,10 +8912,10 @@ QGroupBox::indicator:checked:disabled {
                    <item row="0" column="1">
                     <spacer name="horizontalSpacer_61">
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                      <property name="sizeType">
-                      <enum>QSizePolicy::Maximum</enum>
+                      <enum>QSizePolicy::Policy::Maximum</enum>
                      </property>
                      <property name="sizeHint" stdset="0">
                       <size>
@@ -8927,16 +8933,16 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="contextMenuPolicy">
-                      <enum>Qt::CustomContextMenu</enum>
+                      <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::RightToLeft</enum>
+                      <enum>Qt::LayoutDirection::RightToLeft</enum>
                      </property>
                      <property name="text">
                       <string>1</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -8970,7 +8976,7 @@ QGroupBox::indicator:checked:disabled {
                       <number>1</number>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -9058,17 +9064,17 @@ QGroupBox::indicator:checked:disabled {
                         <number>10</number>
                        </property>
                        <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
+                        <enum>Qt::Orientation::Horizontal</enum>
                        </property>
                       </widget>
                      </item>
                      <item row="0" column="1">
                       <spacer name="horizontalSpacer_50">
                        <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
+                        <enum>Qt::Orientation::Horizontal</enum>
                        </property>
                        <property name="sizeType">
-                        <enum>QSizePolicy::Maximum</enum>
+                        <enum>QSizePolicy::Policy::Maximum</enum>
                        </property>
                        <property name="sizeHint" stdset="0">
                         <size>
@@ -9098,16 +9104,16 @@ QGroupBox::indicator:checked:disabled {
                         </font>
                        </property>
                        <property name="contextMenuPolicy">
-                        <enum>Qt::CustomContextMenu</enum>
+                        <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
                        </property>
                        <property name="layoutDirection">
-                        <enum>Qt::RightToLeft</enum>
+                        <enum>Qt::LayoutDirection::RightToLeft</enum>
                        </property>
                        <property name="text">
                         <string>10</string>
                        </property>
                        <property name="alignment">
-                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                        <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                        </property>
                       </widget>
                      </item>
@@ -9145,7 +9151,7 @@ QGroupBox::indicator:checked:disabled {
                       <string>→</string>
                      </property>
                      <property name="alignment">
-                      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                      </property>
                     </widget>
                    </item>
@@ -9162,16 +9168,16 @@ QGroupBox::indicator:checked:disabled {
                         </font>
                        </property>
                        <property name="contextMenuPolicy">
-                        <enum>Qt::CustomContextMenu</enum>
+                        <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
                        </property>
                        <property name="layoutDirection">
-                        <enum>Qt::RightToLeft</enum>
+                        <enum>Qt::LayoutDirection::RightToLeft</enum>
                        </property>
                        <property name="text">
                         <string>32</string>
                        </property>
                        <property name="alignment">
-                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                        <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                        </property>
                       </widget>
                      </item>
@@ -9205,17 +9211,17 @@ QGroupBox::indicator:checked:disabled {
                         <number>32</number>
                        </property>
                        <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
+                        <enum>Qt::Orientation::Horizontal</enum>
                        </property>
                       </widget>
                      </item>
                      <item row="0" column="1">
                       <spacer name="horizontalSpacer_49">
                        <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
+                        <enum>Qt::Orientation::Horizontal</enum>
                        </property>
                        <property name="sizeType">
-                        <enum>QSizePolicy::Maximum</enum>
+                        <enum>QSizePolicy::Policy::Maximum</enum>
                        </property>
                        <property name="sizeHint" stdset="0">
                         <size>
@@ -9336,17 +9342,17 @@ QGroupBox::indicator:checked:disabled {
                         <number>10</number>
                        </property>
                        <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
+                        <enum>Qt::Orientation::Horizontal</enum>
                        </property>
                       </widget>
                      </item>
                      <item row="0" column="1">
                       <spacer name="horizontalSpacer_53">
                        <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
+                        <enum>Qt::Orientation::Horizontal</enum>
                        </property>
                        <property name="sizeType">
-                        <enum>QSizePolicy::Maximum</enum>
+                        <enum>QSizePolicy::Policy::Maximum</enum>
                        </property>
                        <property name="sizeHint" stdset="0">
                         <size>
@@ -9364,16 +9370,16 @@ QGroupBox::indicator:checked:disabled {
                         </font>
                        </property>
                        <property name="contextMenuPolicy">
-                        <enum>Qt::CustomContextMenu</enum>
+                        <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
                        </property>
                        <property name="layoutDirection">
-                        <enum>Qt::RightToLeft</enum>
+                        <enum>Qt::LayoutDirection::RightToLeft</enum>
                        </property>
                        <property name="text">
                         <string>0</string>
                        </property>
                        <property name="alignment">
-                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                        <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                        </property>
                       </widget>
                      </item>
@@ -9404,16 +9410,16 @@ QGroupBox::indicator:checked:disabled {
                         </font>
                        </property>
                        <property name="contextMenuPolicy">
-                        <enum>Qt::CustomContextMenu</enum>
+                        <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
                        </property>
                        <property name="layoutDirection">
-                        <enum>Qt::RightToLeft</enum>
+                        <enum>Qt::LayoutDirection::RightToLeft</enum>
                        </property>
                        <property name="text">
                         <string>10</string>
                        </property>
                        <property name="alignment">
-                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                        <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                        </property>
                       </widget>
                      </item>
@@ -9447,17 +9453,17 @@ QGroupBox::indicator:checked:disabled {
                         <number>10</number>
                        </property>
                        <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
+                        <enum>Qt::Orientation::Horizontal</enum>
                        </property>
                       </widget>
                      </item>
                      <item row="0" column="1">
                       <spacer name="horizontalSpacer_51">
                        <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
+                        <enum>Qt::Orientation::Horizontal</enum>
                        </property>
                        <property name="sizeType">
-                        <enum>QSizePolicy::Maximum</enum>
+                        <enum>QSizePolicy::Policy::Maximum</enum>
                        </property>
                        <property name="sizeHint" stdset="0">
                         <size>
@@ -9487,7 +9493,7 @@ QGroupBox::indicator:checked:disabled {
                       <string notr="true">background-color: rgb(115, 115, 115);</string>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -9592,10 +9598,10 @@ QGroupBox::indicator:checked:disabled {
                       </font>
                      </property>
                      <property name="layoutDirection">
-                      <enum>Qt::LeftToRight</enum>
+                      <enum>Qt::LayoutDirection::LeftToRight</enum>
                      </property>
                      <property name="sizeAdjustPolicy">
-                      <enum>QComboBox::AdjustToContentsOnFirstShow</enum>
+                      <enum>QComboBox::SizeAdjustPolicy::AdjustToContentsOnFirstShow</enum>
                      </property>
                      <item>
                       <property name="text">
@@ -9660,16 +9666,16 @@ QGroupBox::indicator:checked:disabled {
                         </font>
                        </property>
                        <property name="contextMenuPolicy">
-                        <enum>Qt::CustomContextMenu</enum>
+                        <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
                        </property>
                        <property name="layoutDirection">
-                        <enum>Qt::RightToLeft</enum>
+                        <enum>Qt::LayoutDirection::RightToLeft</enum>
                        </property>
                        <property name="text">
                         <string>0</string>
                        </property>
                        <property name="alignment">
-                        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                        <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
                        </property>
                       </widget>
                      </item>
@@ -9703,17 +9709,17 @@ QGroupBox::indicator:checked:disabled {
                         <number>0</number>
                        </property>
                        <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
+                        <enum>Qt::Orientation::Horizontal</enum>
                        </property>
                       </widget>
                      </item>
                      <item row="0" column="1">
                       <spacer name="horizontalSpacer_52">
                        <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
+                        <enum>Qt::Orientation::Horizontal</enum>
                        </property>
                        <property name="sizeType">
-                        <enum>QSizePolicy::Maximum</enum>
+                        <enum>QSizePolicy::Policy::Maximum</enum>
                        </property>
                        <property name="sizeHint" stdset="0">
                         <size>
@@ -9743,7 +9749,7 @@ QGroupBox::indicator:checked:disabled {
                       <string notr="true">background-color: rgb(115, 115, 115);</string>
                      </property>
                      <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
+                      <enum>Qt::Orientation::Horizontal</enum>
                      </property>
                     </widget>
                    </item>
@@ -9770,7 +9776,7 @@ QGroupBox::indicator:checked:disabled {
            <item>
             <spacer name="verticalSpacer">
              <property name="orientation">
-              <enum>Qt::Vertical</enum>
+              <enum>Qt::Orientation::Vertical</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
@@ -9809,10 +9815,10 @@ QGroupBox::indicator:checked:disabled {
     </size>
    </property>
    <property name="features">
-    <set>QDockWidget::DockWidgetClosable</set>
+    <set>QDockWidget::DockWidgetFeature::DockWidgetClosable</set>
    </property>
    <property name="allowedAreas">
-    <set>Qt::BottomDockWidgetArea|Qt::LeftDockWidgetArea</set>
+    <set>Qt::DockWidgetArea::BottomDockWidgetArea|Qt::DockWidgetArea::LeftDockWidgetArea</set>
    </property>
    <property name="windowTitle">
     <string>Session</string>
@@ -9840,50 +9846,50 @@ QGroupBox::indicator:checked:disabled {
      <item>
       <widget class="QListView" name="listViewSession">
        <property name="contextMenuPolicy">
-        <enum>Qt::CustomContextMenu</enum>
+        <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
        </property>
        <property name="horizontalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOff</enum>
+        <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
        </property>
        <property name="alternatingRowColors">
         <bool>true</bool>
        </property>
        <property name="selectionMode">
-        <enum>QAbstractItemView::ExtendedSelection</enum>
+        <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
        </property>
        <property name="movement">
-        <enum>QListView::Static</enum>
+        <enum>QListView::Movement::Static</enum>
        </property>
        <property name="flow">
-        <enum>QListView::TopToBottom</enum>
+        <enum>QListView::Flow::TopToBottom</enum>
        </property>
        <property name="isWrapping" stdset="0">
         <bool>false</bool>
        </property>
        <property name="viewMode">
-        <enum>QListView::ListMode</enum>
+        <enum>QListView::ViewMode::ListMode</enum>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QTableView" name="tableViewSession">
        <property name="contextMenuPolicy">
-        <enum>Qt::CustomContextMenu</enum>
+        <enum>Qt::ContextMenuPolicy::CustomContextMenu</enum>
        </property>
        <property name="horizontalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOn</enum>
+        <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOn</enum>
        </property>
        <property name="editTriggers">
-        <set>QAbstractItemView::NoEditTriggers</set>
+        <set>QAbstractItemView::EditTrigger::NoEditTriggers</set>
        </property>
        <property name="alternatingRowColors">
         <bool>true</bool>
        </property>
        <property name="selectionMode">
-        <enum>QAbstractItemView::ExtendedSelection</enum>
+        <enum>QAbstractItemView::SelectionMode::ExtendedSelection</enum>
        </property>
        <property name="selectionBehavior">
-        <enum>QAbstractItemView::SelectRows</enum>
+        <enum>QAbstractItemView::SelectionBehavior::SelectRows</enum>
        </property>
        <attribute name="horizontalHeaderShowSortIndicator" stdset="0">
         <bool>false</bool>

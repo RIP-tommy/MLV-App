@@ -25,6 +25,7 @@ stripes/stripes-bad.c
 stripes/raw2dng-good.c
 platform/qt/MLVApp.pro.user
 platform/bpm/*
+platform/qt/build
 osx_installer/create-dmg-master/support/template.applescript
 osx_installer/create-dmg-master/support/dmg-license.py
 osx_installer/create-dmg-master/support/brew-me.sh
