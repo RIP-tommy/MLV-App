@@ -397,7 +397,15 @@ RESOURCES += \
 DISTFILES += \
     Info.plist \
     MLVAPP.ico \
-    android/src/fm/magiclantern/forum/UpdateManager.java \
+    android/AndroidManifest.xml \
+    android/build.gradle \
+    android/gradle.properties \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew \
+    android/gradlew.bat \
+    android/res/values/libs.xml \
+    android/res/xml/qtprovider_paths.xml \
     darkstyle/darkstyle.qss \
     darkstyle/darkstyleOSX.qss \
     mlvapp.desktop
@@ -503,25 +511,6 @@ linux-g++ {
 #}
 
 contains(ANDROID_TARGET_ARCH,arm64-v8a) {
-    DEFINES += __arm64
     ANDROID_PACKAGE_SOURCE_DIR = \
         $$PWD/android
-    SOURCES += \
-        AOS/FileWrapper.cpp \
-        AOS/JavaWrapper.cpp
-    HEADERS += \
-        AOS/Android.h
-    DISTFILES += \
-        android/AndroidManifest.xml \
-        android/build.gradle \
-        android/gradle.properties \
-        android/gradle/wrapper/gradle-wrapper.jar \
-        android/gradle/wrapper/gradle-wrapper.properties \
-        android/gradlew \
-        android/gradlew.bat \
-        android/src/fm/magiclantern/forum/MyJavaHelper.java \
-        android/res/values/libs.xml \
-        android/res/xml/qtprovider_paths.xml
 }
-
-android: include($$_PRO_FILE_PWD_/android_openssl/openssl.pri)
