@@ -13,6 +13,7 @@
 #include <QMessageBox>
 #include <QSettings>
 #include <QDebug>
+#include <QStandardPaths>
 #include "avir/avirthreadpool.h"
 #include "AOS/Android.h"
 
@@ -210,9 +211,13 @@ void SingleFrameExportDialog::exportDng()
 #ifdef Q_OS_ANDROID
     if (save_dng_frame( m_pMlvObject, cinemaDng, m_frameNr, fileName.toUtf8().data() ) )
 #elif defined(Q_OS_UNIX)
-    if( saveDngFrame( m_pMlvObject, cinemaDng, m_frameNr, fileName.toUtf8().data() ) )
+    QString properties_fn = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+    properties_fn.append("/mlv-dng-params.txt");
+    if( saveDngFrame( m_pMlvObject, cinemaDng, m_frameNr, fileName.toUtf8().data(), properties_fn.toUtf8().data() ) )
 #else
-    if( saveDngFrame( m_pMlvObject, cinemaDng, m_frameNr, fileName.toLatin1().data() ) )
+    QString properties_fn = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+    properties_fn.append("/mlv-dng-params.txt");
+    if( saveDngFrame( m_pMlvObject, cinemaDng, m_frameNr, fileName.toLatin1().data(), properties_fn.toLatin1().data() ) )
 #endif
     {
         QMessageBox::critical( this, tr( "MLV App - Export file error" ), tr( "Could not save: %1\n" ).arg( fileName ), QMessageBox::Cancel, QMessageBox::Cancel );
