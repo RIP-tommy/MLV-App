@@ -3018,7 +3018,11 @@ void MainWindow::startExportCdng(QString fileName)
 
         //Save cDNG frame
 #ifdef Q_OS_ANDROID
-        QString properties_fn = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+        if (save_dng_frame( m_pMlvObject, cinemaDng, frame, filePathNr.toUtf8().data() ) )
+#elif defined(Q_OS_UNIX)
+        QString properties_fn = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+        properties_fn.append("/mlv-dng-params.txt");
+        if( saveDngFrame( m_pMlvObject, cinemaDng, frame, filePathNr.toUtf8().data(), properties_fn.toUtf8().data() ) )
 #else
         QString properties_fn = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
 #endif
