@@ -144,6 +144,10 @@ MainWindow::MainWindow(int &argc, char **argv, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+#ifdef Q_OS_ANDROID
+    //Request all files access permission for android
+    requestAllFilesAccess();
+#endif
     //Change working directory for C part
     chdir( QCoreApplication::applicationDirPath().toLatin1().data() );
     //Enable color management for macOS
@@ -258,9 +262,6 @@ MainWindow::MainWindow(int &argc, char **argv, QWidget *parent) :
     //ui->comboBoxProcessingGamut->setVisible( false );
     ui->label_TonemappingFunction->setVisible( false );
     ui->comboBoxTonemapFct->setVisible( false );
-
-    //Request all files access permission for android
-    requestAllFilesAccess();
 }
 
 //Destructor
@@ -791,6 +792,10 @@ void MainWindow::on_actionOpen_triggered()
 {
     //Stop playback if active
     ui->actionPlay->setChecked( false );
+
+    QString path = QFileInfo( m_lastMlvOpenFileName ).absolutePath();
+    if( !QDir( path ).exists() ) path = QDir::homePath();
+
     //Open File Dialog
     QStringList files = QFileDialog::getOpenFileNames( this, tr("Open one or more MLV..."),
                                                        path,

@@ -133,6 +133,7 @@ linux-g++*{
 
 ##############
 SOURCES += \
+    AOS/RequestPermissions.cpp \
     ClipInformation.cpp \
     RenameDialog.cpp \
     SessionModel.cpp \
