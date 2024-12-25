@@ -8,6 +8,7 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include "math.h"
+#include "AOS/Android.h"
 
 #include <QMessageBox>
 #include <QThread>
@@ -59,47 +60,6 @@
 #include "StatusFpmDialog.h"
 #include "RenameDialog.h"
 
-#include <QJniObject>
-#include <QJniEnvironment>
-
-void requestAllFilesAccess() {
-    // Check If all files permission is already granted
-    if (QJniObject::callStaticMethod<jboolean>(
-            "android/os/Environment",
-            "isExternalStorageManager",
-            "()Z"
-        ))
-        return;
-    // Get the current Android activity context
-    QJniObject activity = QNativeInterface::QAndroidApplication::context();
-
-    // Get the ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION string as a jstring
-    QJniObject actionManageAppAllFilesAccessPermission = QJniObject::getStaticObjectField<jstring>(
-        "android/provider/Settings", "ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION");
-
-
-    // Create an intent to open the "All Files Access" settings screen
-    QJniObject intent("android/content/Intent", "(Ljava/lang/String;)V",
-                      actionManageAppAllFilesAccessPermission.object<jstring>());
-
-
-    // Get the app's package name
-    QJniObject packageName = activity.callObjectMethod<jstring>("getPackageName");
-
-    // Create a URI with the package name
-    QJniObject uri = QJniObject::callStaticObjectMethod(
-        "android/net/Uri", "fromParts", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Landroid/net/Uri;",
-        QJniObject::fromString("package").object<jstring>(),
-        packageName.object<jstring>(),
-        nullptr);
-
-    // Set the intent's data with the URI
-    intent.callObjectMethod("setData", "(Landroid/net/Uri;)Landroid/content/Intent;", uri.object());
-
-    // Start the activity to request all files access
-    activity.callMethod<void>("startActivity", "(Landroid/content/Intent;)V", intent.object());
-}
-
 /* spaceTag argument options: ffmpeg color space tag number compliant */
 #define SPACETAG_REC709   1   /* rec709 color space */
 #define SPACETAG_UNKNOWN  2   /* No color space tag set */
@@ -138,6 +98,10 @@ MainWindow::MainWindow(int &argc, char **argv, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+#ifdef Q_OS_ANDROID
+    //Request all files access permission for android
+    requestAllFilesAccess();
+#endif
     //Change working directory for C part
     chdir( QCoreApplication::applicationDirPath().toLatin1().data() );
 
@@ -249,9 +213,6 @@ MainWindow::MainWindow(int &argc, char **argv, QWidget *parent) :
     //ui->comboBoxProcessingGamut->setVisible( false );
     ui->label_TonemappingFunction->setVisible( false );
     ui->comboBoxTonemapFct->setVisible( false );
-
-    //Request all files access permission for android
-    requestAllFilesAccess();
 }
 
 //Destructor
@@ -764,26 +725,36 @@ void MainWindow::on_actionOpen_triggered()
 {
     //Stop playback if active
     ui->actionPlay->setChecked( false );
+
+    QString path = QFileInfo( m_lastMlvOpenFileName ).absolutePath();
+    if( !QDir( path ).exists() ) path = QDir::homePath();
+
     //Open File Dialog
     QStringList files = QFileDialog::getOpenFileNames( this, tr("Open one or more MLV..."),
-                                                    "",
-                                                    tr("Magic Lantern Video (*.mlv *.MLV)") );
+                                                       path,
+                                                       tr("Video (*.mlv *.MLV *.mcraw *.MCRAW)") );
+
     if( files.empty() ) return;
 
     m_inOpeningProcess = true;
 
+
     for( int i = 0; i < files.size(); i++ )
     {
-        QString selectedFile = files.at(i);
-        QString fileName = "";
-        QUrl fileUrl(selectedFile);
+        QString fileName = files.at(i);
+
+#ifdef Q_OS_ANDROID
+        QUrl fileUrl( fileName );
         QStringList splited = fileUrl.path().split(":");
         QStringList loc = splited.first().split("/");
         if (loc.last().compare("primary") == 0) fileName = "/storage/emulated/0/" + splited.last();
         else fileName = "/mnt/media_rw/" + loc.last() + "/" + splited.last();
+#endif
 
-        //Exit if not an MLV file or
-        if( fileName == QString( "" ) || !fileName.endsWith( ".mlv", Qt::CaseInsensitive ) ) continue;
+        //Exit if not an MLV file or aborted
+        if( fileName == QString( "" ) ||
+            (!fileName.endsWith( ".mlv", Qt::CaseInsensitive ) &&
+             !fileName.endsWith( ".mcraw", Qt::CaseInsensitive )) ) continue;
 
         importNewMlv( fileName );
     }

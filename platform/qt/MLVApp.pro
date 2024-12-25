@@ -127,6 +127,7 @@ linux-g++*{
 
 ##############
 SOURCES += \
+    AOS/RequestPermissions.cpp \
     ClipInformation.cpp \
     RenameDialog.cpp \
     SessionModel.cpp \
@@ -269,6 +270,7 @@ HEADERS += MainWindow.h \
     ../../src/processing/image_profile.h \
     ../../src/processing/cube_lut.h \
     ../../src/processing/denoiser/denoiser_2d_median.h \
+    AOS/Android.h \
     ClipInformation.h \
     InfoDialog.h \
     MyApplication.h \
