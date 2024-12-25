@@ -264,9 +264,6 @@ MainWindow::MainWindow(int &argc, char **argv, QWidget *parent) :
     //ui->comboBoxProcessingGamut->setVisible( false );
     ui->label_TonemappingFunction->setVisible( false );
     ui->comboBoxTonemapFct->setVisible( false );
-
-    //Request all files access permission for android
-    requestAllFilesAccess();
 }
 
 //Destructor
@@ -797,6 +794,10 @@ void MainWindow::on_actionOpen_triggered()
 {
     //Stop playback if active
     ui->actionPlay->setChecked( false );
+
+    QString path = QFileInfo( m_lastMlvOpenFileName ).absolutePath();
+    if( !QDir( path ).exists() ) path = QDir::homePath();
+
     //Open File Dialog
     QStringList files = QFileDialog::getOpenFileNames( this, tr("Open one or more MLV..."),
                                                        path,
@@ -811,10 +812,19 @@ void MainWindow::on_actionOpen_triggered()
     {
         QString fileName = files.at(i);
 
+#ifdef Q_OS_ANDROID
+        QUrl fileUrl( fileName );
+        QStringList splited = fileUrl.path().split(":");
+        QStringList loc = splited.first().split("/");
+        if (QString::compare(loc.last(), "primary") == 0) fileName = "/storage/emulated/0/" + splited.last();
+        else {
+            fileName = "/mnt/media_rw/" + loc.last() + "/" + splited.last();
+        }
+#endif
         //Exit if not an MLV file or aborted
         if( fileName == QString( "" ) ||
-            !(fileName.endsWith( ".mlv", Qt::CaseInsensitive ) ||
-              fileName.endsWith( ".mcraw", Qt::CaseInsensitive )) ) continue;
+            (!fileName.endsWith( ".mlv", Qt::CaseInsensitive ) &&
+             !fileName.endsWith( ".mcraw", Qt::CaseInsensitive )) ) continue;
 
         importNewMlv( fileName );
     }
