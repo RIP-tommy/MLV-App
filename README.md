@@ -114,12 +114,13 @@ What is MLV App? Lightroom, but for Magic Lantern MLV Video (and open source and
 - `./mlvapp` and have fun
 
 #### Qt App Android (generally)
-- install Qt6 (6.4 or later) and JDK(11+) and Android SDK, NDK and set ENV variables
+- install Qt6 (6.5.3 or later) and JDK(17+) and Android SDK, NDK
+- set JAVA, ANDROID ENV variables
 - open `platform/qt/MLVApp.pro` in QtCreator
 - Build Android APK tab in projects menu set Android build-tools version to 34 and Android build platform SDK android-34
 - set Debug build
 - Build and Start
-- Check `platform/qt/build/Android_Qt_6_7_2_Clang_arm64_v8a-Debug/android-build/build/outputs/apk/debug`
+- Check `platform/qt/build/Android_Qt_(version)_Clang_arm64_v8a-Debug/android-build/build/outputs/apk/debug`
 - you can find an APK file
 
 A detailed guide for compiling MLV-App on Linux can be found [here](https://sternenkarten.com/tutorial-englisch/) (thanks to @seescho).

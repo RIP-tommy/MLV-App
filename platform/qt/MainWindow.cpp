@@ -8,7 +8,9 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include "math.h"
+#ifdef Q_OS_ANDROID
 #include "AOS/Android.h"
+#endif
 
 #include <QMessageBox>
 #include <QThread>
