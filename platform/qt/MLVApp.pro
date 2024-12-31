@@ -127,7 +127,6 @@ linux-g++*{
 
 ##############
 SOURCES += \
-    AOS/RequestPermissions.cpp \
     ClipInformation.cpp \
     RenameDialog.cpp \
     SessionModel.cpp \
@@ -270,7 +269,6 @@ HEADERS += MainWindow.h \
     ../../src/processing/image_profile.h \
     ../../src/processing/cube_lut.h \
     ../../src/processing/denoiser/denoiser_2d_median.h \
-    AOS/Android.h \
     ClipInformation.h \
     InfoDialog.h \
     MyApplication.h \
@@ -389,15 +387,6 @@ RESOURCES += \
 DISTFILES += \
     Info.plist \
     MLVAPP.ico \
-    android/AndroidManifest.xml \
-    android/build.gradle \
-    android/gradle.properties \
-    android/gradle/wrapper/gradle-wrapper.jar \
-    android/gradle/wrapper/gradle-wrapper.properties \
-    android/gradlew \
-    android/gradlew.bat \
-    android/res/values/libs.xml \
-    android/res/xml/qtprovider_paths.xml \
     darkstyle/darkstyle.qss \
     darkstyle/darkstyleOSX.qss \
     mlvapp.desktop
@@ -505,4 +494,18 @@ linux-g++ {
 contains(ANDROID_TARGET_ARCH,arm64-v8a) {
     ANDROID_PACKAGE_SOURCE_DIR = \
         $$PWD/android
+    SOURCES += \
+        AOS/RequestPermissions.cpp \
+    HEADERS += \
+        AOS/Android.h \
+    DISTFILES += \
+        android/AndroidManifest.xml \
+        android/build.gradle \
+        android/gradle.properties \
+        android/gradle/wrapper/gradle-wrapper.jar \
+        android/gradle/wrapper/gradle-wrapper.properties \
+        android/gradlew \
+        android/gradlew.bat \
+        android/res/values/libs.xml \
+        android/res/xml/qtprovider_paths.xml \
 }
