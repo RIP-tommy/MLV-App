@@ -279,6 +279,7 @@ HEADERS += MainWindow.h \
     ../../src/processing/denoiser/denoiser_2d_median.h \
     AOS/Android.h \
     ClipInformation.h \
+    CustomPopen.h \
     InfoDialog.h \
     MyApplication.h \
     RenameDialog.h \
