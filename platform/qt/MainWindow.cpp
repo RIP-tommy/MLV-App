@@ -780,8 +780,8 @@ void MainWindow::on_actionOpen_triggered()
 #endif
         //Exit if not an MLV file or aborted
         if( fileName == QString( "" ) ||
-            (!fileName.endsWith( ".mlv", Qt::CaseInsensitive ) &&
-             !fileName.endsWith( ".mcraw", Qt::CaseInsensitive )) ) continue;
+            !(fileName.endsWith( ".mlv", Qt::CaseInsensitive ) ||
+              fileName.endsWith( ".mcraw", Qt::CaseInsensitive )) ) continue;
 
         importNewMlv( fileName );
     }
