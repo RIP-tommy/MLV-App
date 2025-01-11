@@ -4614,6 +4614,11 @@ QGroupBox::indicator:checked:disabled {
                      <string>Fuji F-Log</string>
                     </property>
                    </item>
+                   <item>
+                    <property name="text">
+                     <string>Canon Log</string>
+                    </property>
+                   </item>
                   </widget>
                  </item>
                  <item row="6" column="0">
