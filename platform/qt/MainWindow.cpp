@@ -63,7 +63,6 @@
 #include "FocusPixelMapManager.h"
 #include "StatusFpmDialog.h"
 #include "RenameDialog.h"
-#include "CustomPopen.h"
 
 /* spaceTag argument options: ffmpeg color space tag number compliant */
 #define SPACETAG_REC709   1   /* rec709 color space */
@@ -2100,7 +2099,7 @@ void MainWindow::startExportPipe(QString fileName)
     #ifdef Q_OS_UNIX
         if( !( pPipeStab = popen( stabCmd.toUtf8().data(), "w" ) ) )
     #else
-        if( !( pPipeStab = CustomPopen( stabCmd.toLatin1().data(), "wb" ) ) )
+        if( !( pPipeStab = popen( stabCmd.toLatin1().data(), "wb" ) ) )
     #endif
         {
             QMessageBox::critical( this, tr( "File export failed" ), tr( "Could not export with ffmpeg." ) );
@@ -2175,11 +2174,7 @@ void MainWindow::startExportPipe(QString fileName)
                 if( m_exportAbortPressed ) break;
             }
             //Close pipe
-#ifdef Q_OS_UNIX
             pclose( pPipeStab );
-#else
-            fclose( pPipeStab );
-#endif
             free( imgBufferScaled );
             free( imgBuffer );
         }
@@ -2634,7 +2629,7 @@ void MainWindow::startExportPipe(QString fileName)
 #ifdef Q_OS_UNIX
     if( !( pPipe = popen( program.toUtf8().data(), "w" ) ) )
 #else
-    if( !( pPipe = CustomPopen( program.toLatin1().data(), "wb" ) ) )
+    if( !( pPipe = popen( program.toLatin1().data(), "wb" ) ) )
 #endif
     {
         QMessageBox::critical( this, tr( "File export failed" ), tr( "Could not export with ffmpeg." ) );
@@ -2718,11 +2713,7 @@ void MainWindow::startExportPipe(QString fileName)
             if( m_exportAbortPressed ) break;
         }
         //Close pipe
-#ifdef Q_OS_UNIX
         pclose( pPipe );
-#else
-        fclose( pPipe );
-#endif
         free( imgBufferScaled );
         free( imgBuffer );
     }
