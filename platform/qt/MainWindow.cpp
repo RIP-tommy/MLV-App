@@ -770,10 +770,11 @@ void MainWindow::on_actionOpen_triggered()
         QUrl fileUrl( fileName );
         QStringList splited = fileUrl.path().split(":");
         QStringList loc = splited.first().split("/");
-        if (loc.last().compare("primary") == 0) fileName = "/storage/emulated/0/" + splited.last();
-        else fileName = "/mnt/media_rw/" + loc.last() + "/" + splited.last();
+        if (QString::compare(loc.last(), "primary") == 0) fileName = "/storage/emulated/0/" + splited.last();
+        else {
+            fileName = "/mnt/media_rw/" + loc.last() + "/" + splited.last();
+        }
 #endif
-
         //Exit if not an MLV file or aborted
         if( fileName == QString( "" ) ||
             (!fileName.endsWith( ".mlv", Qt::CaseInsensitive ) &&
