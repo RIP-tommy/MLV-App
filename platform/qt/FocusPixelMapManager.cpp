@@ -7,6 +7,10 @@
 
 #include "FocusPixelMapManager.h"
 #include <QByteArray>
+#include <QStandardPaths>
+#include <QDir>
+
+#include <AOS/Android.h>
 
 //Constructor
 FocusPixelMapManager::FocusPixelMapManager(QObject *parent) : QObject(parent)
@@ -23,7 +27,11 @@ FocusPixelMapManager::~FocusPixelMapManager()
 bool FocusPixelMapManager::isDownloaded(mlvObject_t *pMlvObject)
 {
     QString searchName = getMapName( pMlvObject );
+#ifdef Q_OS_ANDROID
+    QString fileName = QString( "%1/%2" ).arg( QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) ).arg(searchName);
+#else
     QString fileName = QString( "%1/%2" ).arg( QCoreApplication::applicationDirPath() ).arg( searchName );
+#endif
     return QFileInfo( fileName ).exists();
 }
 
@@ -108,8 +116,11 @@ int FocusPixelMapManager::updateAllMaps( bool justCheck )
         QString fileName = entry.toObject().value( "name" ).toString();
         QByteArray shaJson = entry.toObject().value( "sha" ).toString().toUtf8();
         QByteArray shaFile;
-
+#ifdef Q_OS_ANDROID
+        QFile f( QString( "%1/%2" ).arg( QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) ).arg( fileName ) );
+#else
         QFile f( QString( "%1/%2" ).arg( QCoreApplication::applicationDirPath() ).arg( fileName ) );
+#endif
         if( f.open(QFile::ReadOnly ) )
         {
             QCryptographicHash hash(QCryptographicHash::Sha1);
@@ -153,8 +164,11 @@ QJsonArray FocusPixelMapManager::getMapList()
     {
         qApp->processEvents();
     }
-
+#ifdef Q_OS_ANDROID
+    QString fileName = QString( "%1/pixel_maps" ).arg( QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) );
+#else
     QString fileName = QString( "%1/pixel_maps" ).arg( QCoreApplication::applicationDirPath() );
+#endif
     QFile file( fileName );
     if( !file.open( QIODevice::ReadOnly | QIODevice::Text ) )
     {

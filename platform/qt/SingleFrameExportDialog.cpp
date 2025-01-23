@@ -14,6 +14,7 @@
 #include <QSettings>
 #include <QDebug>
 #include "avir/avirthreadpool.h"
+#include "AOS/Android.h"
 
 //Constructor
 SingleFrameExportDialog::SingleFrameExportDialog(QWidget *parent,
@@ -206,7 +207,9 @@ void SingleFrameExportDialog::exportDng()
     dngObject_t * cinemaDng = initDngObject( m_pMlvObject, ui->comboBoxCodec->currentIndex(), 1, picAR ); // 2nd param: 0 = uncompresed, 1 = lossless
 
     //Save cDNG frame
-#ifdef Q_OS_UNIX
+#ifdef Q_OS_ANDROID
+    if (save_dng_frame( m_pMlvObject, cinemaDng, m_frameNr, fileName.toUtf8().data() ) )
+#elif defined(Q_OS_UNIX)
     if( saveDngFrame( m_pMlvObject, cinemaDng, m_frameNr, fileName.toUtf8().data() ) )
 #else
     if( saveDngFrame( m_pMlvObject, cinemaDng, m_frameNr, fileName.toLatin1().data() ) )

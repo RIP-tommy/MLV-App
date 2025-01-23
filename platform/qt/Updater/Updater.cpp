@@ -8,6 +8,7 @@
 #include "Updater.h"
 #include <QByteArray>
 #include <QCollator>
+#include <QStandardPaths>
 
 static const auto naturalSortQstringComparator = [](const QString& l, const QString& r) {
     static QCollator collator;
@@ -70,7 +71,11 @@ QJsonArray Updater::getReleaseList( void )
         qApp->processEvents();
     }
 
+#ifdef Q_OS_ANDROID
+    QString fileName = QString( "%1/releases" ).arg( QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) );
+#else
     QString fileName = QString( "%1/releases" ).arg( QCoreApplication::applicationDirPath() );
+#endif
     QFile file( fileName );
     if( !file.open( QIODevice::ReadOnly | QIODevice::Text ) )
     {

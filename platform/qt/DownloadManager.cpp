@@ -41,6 +41,8 @@
 
 #include "DownloadManager.h"
 
+#include <QStandardPaths>
+
 DownloadManager::DownloadManager()
 {
     m_downloadSucess = false;
@@ -84,8 +86,13 @@ QString DownloadManager::saveFileName(const QUrl &url)
 
 bool DownloadManager::saveToDisk(const QString &filename, QIODevice *data)
 {
+#ifdef Q_OS_ANDROID
+    QFile file( QString( "%1/%2" ).arg( QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) ).arg(filename) );
+#else
     QFile file(filename);
+#endif
     if (!file.open(QIODevice::WriteOnly)) {
+        qDebug() << "error on opening" << QString( "%1/%2" ).arg( "/storage/emulated/0/Download" ).arg(filename);
         fprintf(stderr, "Could not open %s for writing: %s\n",
                 qPrintable(filename),
                 qPrintable(file.errorString()));

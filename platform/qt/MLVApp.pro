@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimedia
+QT       += core gui multimedia network
 
 win32{
     greaterThan(QT_MAJOR_VERSION, 5): CONFIG   += c++17
@@ -428,11 +428,11 @@ ICON_FILES.path = Contents/Resources
 QMAKE_BUNDLE_DATA += ICON_FILES
 
 #unpack & install ffmpeg on OSX
-macx: QMAKE_POST_LINK += unzip -o ../qt/FFmpeg/ffmpegOSX.zip $$escape_expand(\n\t)
+macx: QMAKE_POST_LINK += unzip -o $$_PRO_FILE_PWD_/FFmpeg/ffmpegOSX.zip $$escape_expand(\n\t)
 macx: QMAKE_POST_LINK += "mv ffmpeg MLV\ App.app/Contents/MacOS/" $$escape_expand(\n\t)
 #unpack & install raw2mlv on OSX
-macx: equals(QT_ARCH, arm64): QMAKE_POST_LINK += unzip -o ../qt/raw2mlv/raw2mlvMacOsArm.zip $$escape_expand(\n\t)
-macx: equals(QT_ARCH, x86_64): QMAKE_POST_LINK += unzip -o ../qt/raw2mlv/raw2mlvOSX.zip $$escape_expand(\n\t)
+macx: equals(QT_ARCH, arm64): QMAKE_POST_LINK += unzip -o $$_PRO_FILE_PWD_/raw2mlv/raw2mlvMacOsArm.zip $$escape_expand(\n\t)
+macx: equals(QT_ARCH, x86_64): QMAKE_POST_LINK += unzip -o $$_PRO_FILE_PWD_/raw2mlv/raw2mlvOSX.zip $$escape_expand(\n\t)
 macx: QMAKE_POST_LINK += "mv raw2mlv MLV\ App.app/Contents/MacOS/" $$escape_expand(\n\t)
 
 unix{
@@ -495,6 +495,7 @@ contains(ANDROID_TARGET_ARCH,arm64-v8a) {
     ANDROID_PACKAGE_SOURCE_DIR = \
         $$PWD/android
     SOURCES += \
+        AOS/ExportCDNG.cpp \
         AOS/RequestPermissions.cpp
     HEADERS += \
         AOS/Android.h
@@ -507,5 +508,7 @@ contains(ANDROID_TARGET_ARCH,arm64-v8a) {
         android/gradlew \
         android/gradlew.bat \
         android/res/values/libs.xml \
-        android/res/xml/qtprovider_paths.xml \
+        android/res/xml/qtprovider_paths.xml
 }
+
+android: include($$_PRO_FILE_PWD_/android_openssl/openssl.pri)

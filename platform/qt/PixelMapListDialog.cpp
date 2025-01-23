@@ -10,6 +10,7 @@
 #include <QDir>
 #include <QDebug>
 #include <QTreeWidgetItem>
+#include <QStandardPaths>
 
 #ifdef __cplusplus
 extern "C" {
@@ -33,8 +34,11 @@ PixelMapListDialog::PixelMapListDialog(QWidget *parent, MapType mapType) :
 
     m_mapType = mapType;
     ui->labelMissing->setVisible( false );
-
+#ifdef Q_OS_ANDROID
+    QDir directory( QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) );
+#else
     QDir directory( QCoreApplication::applicationDirPath() );
+#endif
     QStringList fpms;
     if( m_mapType == FPM )
     {
