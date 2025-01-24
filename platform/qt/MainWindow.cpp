@@ -1727,6 +1727,7 @@ void MainWindow::writeSettings()
 //Start Export via Pipe
 void MainWindow::startExportPipe(QString fileName)
 {
+    bool staberr = false;
     //ffmpeg existing?
     {
 #if defined __linux__ && !defined APP_IMAGE
@@ -2178,7 +2179,8 @@ void MainWindow::startExportPipe(QString fileName)
             //Close pipe
             if( pclose( pPipeStab ) != 0 )
             {
-                QMessageBox::critical( this, tr( "File export failed" ), tr( "FFmpeg closed unexpectedly during stabilization.\n\nFile %1 was not exported." ).arg( fileName ) );
+                staberr = true;
+                QMessageBox::critical( this, tr( "File export failed" ), tr( "FFmpeg closed unexpectedly during stabilization.\n\nFile %1 was not exported completely." ).arg( fileName ) );
             }
             free( imgBufferScaled );
             free( imgBuffer );
@@ -2628,6 +2630,8 @@ void MainWindow::startExportPipe(QString fileName)
         program.insert( program.indexOf( "-c:v" ), pass3 );
     }
 
+	if( ( m_exportQueue.first()->vidStabEnabled() && staberr == false ) || !m_exportQueue.first()->vidStabEnabled() )
+    {
     //Try to open pipe
     FILE *pPipe;
     //qDebug() << "Call ffmpeg:" << program;
@@ -2720,11 +2724,12 @@ void MainWindow::startExportPipe(QString fileName)
         //Close pipe
         if( pclose( pPipe ) != 0 )
         {
-            QMessageBox::critical( this, tr( "File export failed" ), tr( "FFmpeg closed unexpectedly during export.\n\nFile %1 was not exported." ).arg( fileName ) );
+            QMessageBox::critical( this, tr( "File export failed" ), tr( "FFmpeg closed unexpectedly during export.\n\nFile %1 was not exported completely." ).arg( fileName ) );
         }
         free( imgBufferScaled );
         free( imgBuffer );
     }
+	}
 
     //Delete wav file
     QFile *file = new QFile( wavFileName );
