@@ -133,7 +133,6 @@ linux-g++*{
 
 ##############
 SOURCES += \
-    AOS/RequestPermissions.cpp \
     ClipInformation.cpp \
     RenameDialog.cpp \
     SessionModel.cpp \
@@ -397,15 +396,6 @@ RESOURCES += \
 DISTFILES += \
     Info.plist \
     MLVAPP.ico \
-    android/AndroidManifest.xml \
-    android/build.gradle \
-    android/gradle.properties \
-    android/gradle/wrapper/gradle-wrapper.jar \
-    android/gradle/wrapper/gradle-wrapper.properties \
-    android/gradlew \
-    android/gradlew.bat \
-    android/res/values/libs.xml \
-    android/res/xml/qtprovider_paths.xml \
     darkstyle/darkstyle.qss \
     darkstyle/darkstyleOSX.qss \
     mlvapp.desktop

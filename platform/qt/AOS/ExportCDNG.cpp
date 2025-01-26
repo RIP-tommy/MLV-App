@@ -6,7 +6,7 @@ int save_dng_frame(mlvObject_t* mlv_data, dngObject_t* dng_data, uint32_t frame_
     if (!dngFile.open(QIODevice::WriteOnly)) return 1;
 
     // Get filled dng_data struct
-    if (dng_get_frame(mlv_data, dng_data, frame_index) != 0) {
+    if (dng_get_frame(mlv_data, dng_data, frame_index, dng_filename.toLocal8Bit().constData()) != 0) {
         dngFile.close();
         return 1;
     }

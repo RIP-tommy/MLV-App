@@ -911,7 +911,7 @@ static void dng_reverse_byte_order(uint16_t * input_buffer, size_t buf_size)
 }
 
 /* build whole DNG frame (header + image), process image if needed and put to the dng struct ready to save */
-int dng_get_frame(mlvObject_t * mlv_data, dngObject_t * dng_data, uint32_t frame_index)
+int dng_get_frame(mlvObject_t * mlv_data, dngObject_t * dng_data, uint32_t frame_index, const char *prop_filename)
 {
     int ret = 0;
 

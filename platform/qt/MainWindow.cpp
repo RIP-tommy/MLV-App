@@ -761,11 +761,6 @@ void MainWindow::on_actionOpen_triggered()
     for( int i = 0; i < files.size(); i++ )
     {
         QString fileName = files.at(i);
-
-#ifdef Q_OS_ANDROID
-        QUrl fileUrl( fileName );
-        QString fileName = files.at(i);
-
 #ifdef Q_OS_ANDROID
         QUrl fileUrl( fileName );
         QStringList splited = fileUrl.path().split(":");
