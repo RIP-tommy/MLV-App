@@ -20,7 +20,7 @@
 #include <cstdint>
 #include <vector>
 #include <cstring>
-#ifndef __arm64
+#if defined(__x86_64__) || defined(_M_X64) || defined(__i386) || defined(_M_IX86)
 #include <immintrin.h>
 #endif
 
@@ -56,7 +56,7 @@ namespace motioncam {
 // https://github.com/mirsadm/motioncam-decoder/commit/15fd711525e0701205b3805b4777c63b6184782d?diff=split&w=0
 // Code from hanatos
 
-#ifndef __arm64
+#if defined(__x86_64__) || defined(_M_X64) || defined(__i386) || defined(_M_IX86)
             struct UInt16x8
             {
                 __m128i d;
