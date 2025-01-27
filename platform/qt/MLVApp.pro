@@ -501,6 +501,7 @@ linux-g++ {
 #}
 
 contains(ANDROID_TARGET_ARCH,arm64-v8a) {
+    DEFINES += __arm64
     ANDROID_PACKAGE_SOURCE_DIR = \
         $$PWD/android
     SOURCES += \

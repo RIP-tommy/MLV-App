@@ -20,7 +20,7 @@
 #include <cstdint>
 #include <vector>
 #include <cstring>
-#if defined(__x86_64__) || defined(_M_X64) || defined(__i386) || defined(_M_IX86)
+#ifndef __arm64
 #include <immintrin.h>
 #endif
 
@@ -56,7 +56,7 @@ namespace motioncam {
 // https://github.com/mirsadm/motioncam-decoder/commit/15fd711525e0701205b3805b4777c63b6184782d?diff=split&w=0
 // Code from hanatos
 
-#if defined(__x86_64__) || defined(_M_X64) || defined(__i386) || defined(_M_IX86)
+#ifndef __arm64
             struct UInt16x8
             {
                 __m128i d;
@@ -130,7 +130,7 @@ namespace motioncam {
 
     struct UInt16x8 {
         const uint16_t d[8];
-        
+
         UInt16x8(
             const uint16_t p0,
             const uint16_t p1,
@@ -152,7 +152,7 @@ namespace motioncam {
         UInt16x8(const uint16_t val) : d{val, val, val, val, val, val, val, val}
         {
         }
-        
+
         inline
         UInt16x8 operator&(const UInt16x8& rhs) const {
             return UInt16x8(
@@ -178,7 +178,7 @@ namespace motioncam {
                 d[6] | rhs.d[6],
                 d[7] | rhs.d[7]);
         }
-        
+
         inline
         UInt16x8 operator<<(const int n) const {
             return UInt16x8(
@@ -191,7 +191,7 @@ namespace motioncam {
                 d[6] << n,
                 d[7] << n);
         }
-        
+
         inline
         UInt16x8 operator>>(const int n) const {
             return UInt16x8(
@@ -232,7 +232,7 @@ namespace motioncam {
         bits = ((*input) >> 4) & 0x0F;
         reference = (*(input) & 0x0F) << 8 | *(input + 1);
     }
-    
+
     inline
     const uint8_t* Decode1(uint16_t* output, const uint8_t* input) {
         const UInt16x8 N(0x01);
@@ -255,10 +255,10 @@ namespace motioncam {
         Store(output + 40, r5);
         Store(output + 48, r6);
         Store(output + 56, r7);
-        
+
         return input + ENCODING_BLOCK_LENGTH[1];
     }
-    
+
     inline
     const uint8_t* Decode2_One(uint16_t* output, const uint8_t* input) {
         const UInt16x8 N(0x03);
@@ -268,23 +268,23 @@ namespace motioncam {
         const UInt16x8 r1 = (p & (N << 2)) >> 2;
         const UInt16x8 r2 = (p & (N << 4)) >> 4;
         const UInt16x8 r3 = (p & (N << 6)) >> 6;
-        
+
         Store(output,      r0);
         Store(output + 8,  r1);
         Store(output + 16, r2);
         Store(output + 24, r3);
-        
+
         return input + 8;
     }
-    
+
     inline
     const uint8_t* Decode2(uint16_t* output, const uint8_t* input) {
         input = Decode2_One(output, input);
         input = Decode2_One(output + 32, input);
-        
+
         return input;
     }
-    
+
     inline
     const uint8_t* Decode3(uint16_t* output, const uint8_t* input) {
         const UInt16x8 N(0x07);
@@ -318,7 +318,7 @@ namespace motioncam {
         Store(output + 40, r5);
         Store(output + 48, r6);
         Store(output + 56, r7);
-        
+
         return input + ENCODING_BLOCK_LENGTH[3];
     }
 
@@ -326,26 +326,26 @@ namespace motioncam {
     const uint8_t* Decode4_One(uint16_t* output, const uint8_t* input) {
         const UInt16x8 N(0x0F);
         const UInt16x8 p = Load(input);
-       
+
         const UInt16x8 r0 =  p & N;
         const UInt16x8 r1 = (p & (N << 4)) >> 4;
-        
+
         Store(output,    r0);
         Store(output+8,  r1);
-        
+
         return input + 8;
     }
-    
+
     inline
     const uint8_t* Decode4(uint16_t* output, const uint8_t* input) {
         input = Decode4_One(output, input);
         input = Decode4_One(output + 16, input);
         input = Decode4_One(output + 32, input);
         input = Decode4_One(output + 48, input);
-        
+
         return input;
     }
-    
+
     inline
     const uint8_t* Decode5(uint16_t* output, const uint8_t* input) {
         const UInt16x8 N(0x1F);
@@ -364,15 +364,15 @@ namespace motioncam {
         const UInt16x8 r2 =  p2 & N;
         const UInt16x8 r3 =  p3 & N;
         const UInt16x8 r4 =  p4 & N;
-        
+
         const UInt16x8 r5 = (p0 >> 5) & L | (((p3 >> 5) & U) << 3);
         const UInt16x8 r6 = (p1 >> 5) & L | (((p4 >> 5) & U) << 3);
 
         const UInt16x8 tmp0 = (p2 >> 5) & L;
         const UInt16x8 tmp1 = tmp0 | ((p3 >> 7) & F) << 3;
-        
+
         const UInt16x8 r7   = tmp1 | ((p4 >> 7) & F) << 4;
-        
+
         Store(output,      r0);
         Store(output + 8,  r1);
         Store(output + 16, r2);
@@ -384,7 +384,7 @@ namespace motioncam {
 
         return input + ENCODING_BLOCK_LENGTH[5];
     }
-    
+
     inline
     const uint8_t* Decode6(uint16_t* output, const uint8_t* input) {
         const UInt16x8 N(0x3F);
@@ -409,12 +409,12 @@ namespace motioncam {
             | (((p1 >> 6) & L) << 2)
             | (((p1 >> 6) & L) << 2)
             | (((p2 >> 6) & L) << 4);
-            
+
         const UInt16x8 r7 =
                ((p3 >> 6) & L)
             | (((p4 >> 6) & L) << 2)
             | (((p5 >> 6) & L) << 4);
-        
+
         Store(output,      r0);
         Store(output + 8,  r1);
         Store(output + 16, r2);
@@ -426,11 +426,11 @@ namespace motioncam {
 
         return input + ENCODING_BLOCK_LENGTH[6];
     }
-    
+
     inline
     const uint8_t* Decode8_One(uint16_t* output, const uint8_t* input) {
         Store(output, Load(input));
-        
+
         return input + 8;
     }
 
@@ -474,7 +474,7 @@ namespace motioncam {
         const UInt16x8 r1 = _r1 | ((p4 & (L << 2))   << 6);
         const UInt16x8 r2 = _r2 | ((p4 & (L << 4))   << 4);
         const UInt16x8 r3 = _r3 | ((p4 & (L << 6))   << 2);
-        
+
         const UInt16x8 _r4 =  p5 & N;
         const UInt16x8 _r5 =  p6 & N;
         const UInt16x8 _r6 =  p7 & N;
@@ -496,11 +496,11 @@ namespace motioncam {
 
         return input + ENCODING_BLOCK_LENGTH[10];
     }
-    
+
     inline
     const uint8_t* Decode16_ONE(uint16_t* output, const uint8_t* input) {
         auto input16 = reinterpret_cast<const uint16_t*>(input);
-        
+
         const UInt16x8 p(
             input16[0],
             input16[1],
@@ -510,9 +510,9 @@ namespace motioncam {
             input16[5],
             input16[6],
             input16[7]);
-        
+
         Store(output, p);
-        
+
         return input + 16;
     }
 
@@ -530,7 +530,7 @@ namespace motioncam {
 
         return input;
     }
-    
+
     inline
     size_t DecodeBlock(
         uint16_t* output,
@@ -542,7 +542,7 @@ namespace motioncam {
         // Don't decode if past end of input
         if(offset + ENCODING_BLOCK_LENGTH[bits] > len)
             return len - offset;
-     
+
         input += offset;
 
         switch (bits) {
@@ -583,7 +583,7 @@ namespace motioncam {
 
         return ENCODING_BLOCK_LENGTH[bits];
     }
-    
+
     inline
     size_t DecodeMetadata(
         const uint8_t* input,
@@ -596,10 +596,10 @@ namespace motioncam {
             |   (static_cast<uint32_t>(input[offset+1]) << 8)
             |   (static_cast<uint32_t>(input[offset+2]) << 16)
             |   (static_cast<uint32_t>(input[offset+3]) << 24);
-    
+
         outMetadata.resize(numBlocks);
         offset += 4;
-        
+
         uint8_t bits;
         uint16_t reference;
 
@@ -608,19 +608,19 @@ namespace motioncam {
 
         for(int i = 0; i < numBlocks; i+=ENCODING_BLOCK) {
             DecodeHeader(bits, reference, input+offset);
-            
+
             offset += HEADER_LENGTH;
             offset += DecodeBlock(data, bits, input, offset, len);
-            
+
             for(int x = 0; x < ENCODING_BLOCK; x++)
                 data[x] += reference;
-            
+
             data += ENCODING_BLOCK;
         }
-        
+
         return offset;
     }
-    
+
     void ReadMetadataHeader(const uint8_t* input, uint32_t& encodedWidth, uint32_t& encodedHeight, uint32_t& bitsOffset, uint32_t& refsOffset) {
         encodedWidth =
                  static_cast<uint32_t>(input[0])
@@ -646,7 +646,7 @@ namespace motioncam {
             |   (static_cast<uint32_t>(input[14]) << 16)
             |   (static_cast<uint32_t>(input[15]) << 24);
     }
-    
+
     } // unnamed namespace
 
     size_t Decode(
@@ -657,7 +657,7 @@ namespace motioncam {
         const size_t len)
     {
         uint16_t* outputStart = output;
-        
+
         uint16_t p0[ENCODING_BLOCK];
         uint16_t p1[ENCODING_BLOCK];
         uint16_t p2[ENCODING_BLOCK];
@@ -667,36 +667,36 @@ namespace motioncam {
         uint32_t encodedWidth, encodedHeight, bitsOffset, refsOffset;
 
         ReadMetadataHeader(input, encodedWidth, encodedHeight, bitsOffset, refsOffset);
-        
+
         if(bitsOffset > len || refsOffset > len)
             return 0;
-        
+
         if(encodedWidth % ENCODING_BLOCK > 0)
             return 0;
-            
+
         if(encodedWidth < width)
             return 0;
 
         // Decode bits
         DecodeMetadata(input, bitsOffset, len, bits);
-        
+
         // Decode refs
         DecodeMetadata(input, refsOffset, len, refs);
 
         size_t offset = METADATA_OFFSET;
-        
+
         std::vector<uint16_t> row0(encodedWidth);
         std::vector<uint16_t> row1(encodedWidth);
         std::vector<uint16_t> row2(encodedWidth);
         std::vector<uint16_t> row3(encodedWidth);
-        
+
         int metadataIdx = 0;
 
         for(int y = 0; y < encodedHeight; y+=4) {
             for(int x = 0; x < encodedWidth; x += ENCODING_BLOCK) {
                 uint16_t blockBits[4] = { bits[metadataIdx], bits[metadataIdx+1], bits[metadataIdx+2], bits[metadataIdx+3] };
                 uint16_t blockRef[4] = { refs[metadataIdx], refs[metadataIdx+1], refs[metadataIdx+2], refs[metadataIdx+3] };
-            
+
                 offset += DecodeBlock(&p0[0], blockBits[0], input, offset, len);
                 offset += DecodeBlock(&p1[0], blockBits[1], input, offset, len);
                 offset += DecodeBlock(&p2[0], blockBits[2], input, offset, len);
@@ -705,17 +705,17 @@ namespace motioncam {
                 for(int i = 0; i < ENCODING_BLOCK; i+=2) {
                     row0[x + i]     = p0[i/2] + blockRef[0];
                     row0[x + i + 1] = p1[i/2] + blockRef[1];
-                    
+
                     row1[x + i]     = p2[i/2] + blockRef[2];
                     row1[x + i + 1] = p3[i/2] + blockRef[3];
 
                     row2[x + i]     = p0[ENCODING_BLOCK/2+i/2] + blockRef[0];
                     row2[x + i + 1] = p1[ENCODING_BLOCK/2+i/2] + blockRef[1];
-                    
+
                     row3[x + i]     = p2[ENCODING_BLOCK/2+i/2] + blockRef[2];
                     row3[x + i + 1] = p3[ENCODING_BLOCK/2+i/2] + blockRef[3];
                 }
-                
+
                 metadataIdx += 4;
             }
 
@@ -731,7 +731,7 @@ namespace motioncam {
             std::memcpy(output, row3.data(), width * 2);
             output += width;
         }
-        
+
         return (output - outputStart);
     }
 }}
