@@ -473,7 +473,7 @@ QGroupBox::indicator:checked:disabled {
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-1752</y>
+            <y>-1807</y>
             <width>269</width>
             <height>5772</height>
            </rect>
@@ -4619,6 +4619,11 @@ QGroupBox::indicator:checked:disabled {
                      <string>Canon Log</string>
                     </property>
                    </item>
+                   <item>
+                    <property name="text">
+                     <string>Panasonic V-Log</string>
+                    </property>
+                   </item>
                   </widget>
                  </item>
                  <item row="6" column="0">
@@ -4690,6 +4695,11 @@ QGroupBox::indicator:checked:disabled {
                    <item>
                     <property name="text">
                      <string>Canon Cinema</string>
+                    </property>
+                   </item>
+                   <item>
+                    <property name="text">
+                     <string>Panasonic V-Gamut</string>
                     </property>
                    </item>
                   </widget>
