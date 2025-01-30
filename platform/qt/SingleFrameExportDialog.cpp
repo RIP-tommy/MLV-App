@@ -208,9 +208,7 @@ void SingleFrameExportDialog::exportDng()
     dngObject_t * cinemaDng = initDngObject( m_pMlvObject, ui->comboBoxCodec->currentIndex(), 1, picAR ); // 2nd param: 0 = uncompresed, 1 = lossless
 
     //Save cDNG frame
-#ifdef Q_OS_ANDROID
-    if (save_dng_frame( m_pMlvObject, cinemaDng, m_frameNr, fileName.toUtf8().data() ) )
-#elif defined(Q_OS_UNIX)
+#ifdef Q_OS_UNIX
     QString properties_fn = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
     properties_fn.append("/mlv-dng-params.txt");
     if( saveDngFrame( m_pMlvObject, cinemaDng, m_frameNr, fileName.toUtf8().data(), properties_fn.toUtf8().data() ) )

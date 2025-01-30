@@ -108,10 +108,6 @@ MainWindow::MainWindow(int &argc, char **argv, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-#ifdef Q_OS_ANDROID
-    //Request all files access permission for android
-    requestAllFilesAccess();
-#endif
     //Change working directory for C part
     chdir( QCoreApplication::applicationDirPath().toLatin1().data() );
     //Enable color management for macOS
@@ -3017,9 +3013,10 @@ void MainWindow::startExportCdng(QString fileName)
         filePathNr = filePathNr.append( "/" + dngName );
 
         //Save cDNG frame
-#ifdef Q_OS_ANDROID
-        if (save_dng_frame( m_pMlvObject, cinemaDng, frame, filePathNr.toUtf8().data() ) )
-#elif defined(Q_OS_UNIX)
+// #ifdef Q_OS_ANDROID
+        // if (save_dng_frame( m_pMlvObject, cinemaDng, frame, filePathNr.toUtf8().data() ) )
+// #elif defined(Q_OS_UNIX)
+#ifdef Q_OS_UNIX
         QString properties_fn = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
         properties_fn.append("/mlv-dng-params.txt");
         if( saveDngFrame( m_pMlvObject, cinemaDng, frame, filePathNr.toUtf8().data(), properties_fn.toUtf8().data() ) )
