@@ -13,7 +13,6 @@
 #include <QThread>
 #include <QTime>
 #include <QSettings>
-#include <QGuiApplication>
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <QDesktopWidget>
 #else

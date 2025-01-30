@@ -380,7 +380,13 @@ static int load_pixel_map(pixel_map * map, uint32_t camera_id, int raw_width, in
     }
 
     char file_name[1024];
+#ifdef __ANDROID__
+    sprintf(file_name, "/data/user/0/fm.magiclantern.forum/files/%x_%ix%i%s", camera_id, raw_width, raw_height, file_ext);
+    // FILE* f = openFileWithQFile(file_name, "r");
+#else
     sprintf(file_name, "%x_%ix%i%s", camera_id, raw_width, raw_height, file_ext);
+
+#endif
     FILE* f = fopen(file_name, "r");
     if(!f) return 0;
     

@@ -792,7 +792,11 @@ static int save_mapp(mlvObject_t * video)
     }
 
     /* open .MAPP file for writing */
+#ifdef __ANDROID__
+    FILE* mappf = openFileWithQFile(mapp_filename, "wb");
+#else
     FILE* mappf = fopen(mapp_filename, "wb");
+#endif
     if (!mappf)
     {
         DEBUG( printf("Could not open %s\n\n", mapp_filename); )
