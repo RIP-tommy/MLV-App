@@ -144,10 +144,6 @@ MainWindow::MainWindow(int &argc, char **argv, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-#ifdef Q_OS_ANDROID
-    //Request all files access permission for android
-    requestAllFilesAccess();
-#endif
     //Change working directory for C part
     chdir( QCoreApplication::applicationDirPath().toLatin1().data() );
     //Enable color management for macOS
