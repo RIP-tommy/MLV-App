@@ -70,44 +70,6 @@
 #include <QJniObject>
 #include <QJniEnvironment>
 
-void requestAllFilesAccess() {
-    // Check If all files permission is already granted
-    if (QJniObject::callStaticMethod<jboolean>(
-            "android/os/Environment",
-            "isExternalStorageManager",
-            "()Z"
-        ))
-        return;
-    // Get the current Android activity context
-    QJniObject activity = QNativeInterface::QAndroidApplication::context();
-
-    // Get the ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION string as a jstring
-    QJniObject actionManageAppAllFilesAccessPermission = QJniObject::getStaticObjectField<jstring>(
-        "android/provider/Settings", "ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION");
-
-
-    // Create an intent to open the "All Files Access" settings screen
-    QJniObject intent("android/content/Intent", "(Ljava/lang/String;)V",
-                      actionManageAppAllFilesAccessPermission.object<jstring>());
-
-
-    // Get the app's package name
-    QJniObject packageName = activity.callObjectMethod<jstring>("getPackageName");
-
-    // Create a URI with the package name
-    QJniObject uri = QJniObject::callStaticObjectMethod(
-        "android/net/Uri", "fromParts", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Landroid/net/Uri;",
-        QJniObject::fromString("package").object<jstring>(),
-        packageName.object<jstring>(),
-        nullptr);
-
-    // Set the intent's data with the URI
-    intent.callObjectMethod("setData", "(Landroid/net/Uri;)Landroid/content/Intent;", uri.object());
-
-    // Start the activity to request all files access
-    activity.callMethod<void>("startActivity", "(Landroid/content/Intent;)V", intent.object());
-}
-
 /* spaceTag argument options: ffmpeg color space tag number compliant */
 #define SPACETAG_REC709   1   /* rec709 color space */
 #define SPACETAG_UNKNOWN  2   /* No color space tag set */
@@ -260,9 +222,6 @@ MainWindow::MainWindow(int &argc, char **argv, QWidget *parent) :
     //ui->comboBoxProcessingGamut->setVisible( false );
     ui->label_TonemappingFunction->setVisible( false );
     ui->comboBoxTonemapFct->setVisible( false );
-
-    //Request all files access permission for android
-    requestAllFilesAccess();
 }
 
 //Destructor
@@ -793,6 +752,10 @@ void MainWindow::on_actionOpen_triggered()
 {
     //Stop playback if active
     ui->actionPlay->setChecked( false );
+
+    QString path = QFileInfo( m_lastMlvOpenFileName ).absolutePath();
+    if( !QDir( path ).exists() ) path = QDir::homePath();
+
     //Open File Dialog
     QStringList files = QFileDialog::getOpenFileNames( this, tr("Open one or more MLV..."),
                                                        path,
@@ -801,7 +764,6 @@ void MainWindow::on_actionOpen_triggered()
     if( files.empty() ) return;
 
     m_inOpeningProcess = true;
-
 
     for( int i = 0; i < files.size(); i++ )
     {
