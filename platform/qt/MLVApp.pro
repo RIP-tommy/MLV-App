@@ -505,6 +505,23 @@ linux-g++ {
 contains(ANDROID_TARGET_ARCH,arm64-v8a) {
     ANDROID_PACKAGE_SOURCE_DIR = \
         $$PWD/android
+    SOURCES += \
+        AOS/FileWrapper.cpp \
+        AOS/JavaWrapper.cpp \
+        AOS/RequestPermissions.cpp
+    HEADERS += \
+        AOS/Android.h
+    DISTFILES += \
+        android/AndroidManifest.xml \
+        android/build.gradle \
+        android/gradle.properties \
+        android/gradle/wrapper/gradle-wrapper.jar \
+        android/gradle/wrapper/gradle-wrapper.properties \
+        android/gradlew \
+        android/gradlew.bat \
+        android/src/fm/magiclantern/forum/MyJavaHelper.java \
+        android/res/values/libs.xml \
+        android/res/xml/qtprovider_paths.xml
 }
 
 android: include($$_PRO_FILE_PWD_/android_openssl/openssl.pri)

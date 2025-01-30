@@ -60,6 +60,6 @@ int dng_decompress_image(uint16_t * output_buffer, uint16_t * input_buffer, size
 dngObject_t * initDngObject(mlvObject_t * mlv_data, int raw_state, double fps, int32_t par[4]);
 int saveDngFrame(mlvObject_t * mlv_data, dngObject_t * dng_data, uint32_t frame_index, char * dng_filename, const char *props_filename);
 void freeDngObject(dngObject_t * dng_data);
-int dng_get_frame(mlvObject_t * mlv_data, dngObject_t * dng_data, uint32_t frame_index, const char *prop_filename);
+// int dng_get_frame(mlvObject_t * mlv_data, dngObject_t * dng_data, uint32_t frame_index, const char *prop_filename);
 
 #endif

@@ -8,6 +8,7 @@
 #include <QString>
 
 void requestAllFilesAccess();
-int save_dng_frame(mlvObject_t* mlv_data, dngObject_t* dng_data, uint32_t frame_index, const QString& dng_filename);
+QString createFolderInAndroidUri(const QString &parentUri, const QString &folderName);
+qint64 getFreeSpaceAndroid(const QString &contentUri);
 
 #endif // ANDROID_H

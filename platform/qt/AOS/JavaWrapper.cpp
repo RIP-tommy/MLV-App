@@ -1,51 +1,10 @@
 #include <QJniObject>
 #include <QJniEnvironment>
-#include <QCoreApplication>
-
-// For keeping screen on
-QJniObject wakeLock;
-
-void requestAllFilesAccess() {
-    // Check If all files permission is already granted
-    if (QJniObject::callStaticMethod<jboolean>(
-            "android/os/Environment",
-            "isExternalStorageManager",
-            "()Z"
-            ))
-        return;
-    // Get the current Android activity context
-    QJniObject activity = QNativeInterface::QAndroidApplication::context();
-
-    // Get the ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION string as a jstring
-    QJniObject actionManageAppAllFilesAccessPermission = QJniObject::getStaticObjectField<jstring>(
-        "android/provider/Settings", "ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION");
-
-
-    // Create an intent to open the "All Files Access" settings screen
-    QJniObject intent("android/content/Intent", "(Ljava/lang/String;)V",
-                      actionManageAppAllFilesAccessPermission.object<jstring>());
-
-
-    // Get the app's package name
-    QJniObject packageName = activity.callObjectMethod<jstring>("getPackageName");
-
-    // Create a URI with the package name
-    QJniObject uri = QJniObject::callStaticObjectMethod(
-        "android/net/Uri", "fromParts", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Landroid/net/Uri;",
-        QJniObject::fromString("package").object<jstring>(),
-        packageName.object<jstring>(),
-        nullptr);
-
-    // Set the intent's data with the URI
-    intent.callObjectMethod("setData", "(Landroid/net/Uri;)Landroid/content/Intent;", uri.object());
-
-    // Start the activity to request all files access
-    activity.callMethod<void>("startActivity", "(Landroid/content/Intent;)V", intent.object());
-}
 
 QString createFolderInAndroidUri(const QString &parentUri, const QString &folderName) {
     // Get Android Activity (which acts as a Context)
-    QJniObject activity = QNativeInterface::QAndroidApplication::context();
+    QJniObject activity = QJniObject::callStaticObjectMethod(
+        "org/qtproject/qt/android/QtNative", "activity", "()Landroid/app/Activity;");
 
     if (!activity.isValid()) {
         return QString();
@@ -64,174 +23,20 @@ QString createFolderInAndroidUri(const QString &parentUri, const QString &folder
     return result.isValid() ? result.toString() : QString();
 }
 
-qint8 runExport(const QString &inputFile, const QString &outputFile) {
-    QJniObject activity = QNativeInterface::QAndroidApplication::context();
-
-    if (activity.isValid()) {
-        jint result =  QJniObject::callStaticMethod<jint>(
-            "fm/magiclantern/forum/MyJavaHelper",
-            "runFfmpeg",
-            "(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)I",
-            activity.object(),
-            QJniObject::fromString(inputFile).object(),
-            QJniObject::fromString(outputFile).object());
-        return static_cast<qint8>(result);
-    }
-    return 0;
-}
-
-bool checkFFmpeg() {
-    QJniObject activity = QNativeInterface::QAndroidApplication::context();
-
-    if (activity.isValid()) {
-        jboolean result =  QJniObject::callStaticMethod<jboolean>(
-            "fm/magiclantern/forum/MyJavaHelper",
-            "checkFFmpegReady",
-            "(Landroid/content/Context;)Z",
-            activity.object());
-        return static_cast<bool>(result);
-    }
-    return false;
-}
-
-bool runFFmpegCmd(QString cmd, QString outputFile) {
-    QJniObject activity = QNativeInterface::QAndroidApplication::context();
-
-    jboolean result = QJniObject::callStaticMethod<jboolean>(
-        "fm/magiclantern/forum/MyJavaHelper",
-        "runFFmpegCmd",
-        "(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)Z",
-        activity.object(),
-        QJniObject::fromString(cmd).object(),
-        QJniObject::fromString(outputFile).object());
-    return static_cast<bool>(result);
-}
-
-QString getFFMpegPipe() {
-    QJniObject activity = QNativeInterface::QAndroidApplication::context();
-
-    return QJniObject::callStaticMethod<QString>(
-        "fm/magiclantern/forum/MyJavaHelper",
-        "getFFmpegPipe",
-        "(Landroid/app/Activity;)Ljava/lang/String;",
-        activity.object());
-}
-
-bool runFFmpegCmdInPipe(QString tmpImgPath, QString cmd, QString pipe) {
-    QJniObject activity = QNativeInterface::QAndroidApplication::context();
-
-    jboolean result = QJniObject::callStaticMethod<jboolean>(
-        "fm/magiclantern/forum/MyJavaHelper",
-        "runFFmpegCmdInPipe",
-        "(Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Z",
-        activity.object(),
-        QJniObject::fromString(tmpImgPath).object(),
-        QJniObject::fromString(cmd).object(),
-        QJniObject::fromString(pipe).object());
-    return static_cast<bool>(result);
-}
-
-void closeFFmpegPipe(QString pipe) {
-    QJniObject::callStaticMethod<void>(
-        "fm/magiclantern/forum/MyJavaHelper",
-        "closeFFmpegPipe",
-        "(Ljava/lang/String;)V",
-        QJniObject::fromString(pipe).object());
-}
-
-void startExportService() {
-    QJniObject activity = QNativeInterface::QAndroidApplication::context();
-    if (activity.isValid()) {
-        QJniObject::callStaticMethod<void>(
-            "fm/magiclantern/forum/MyJavaHelper",
-            "startExportService",
-            "(Landroid/content/Context;)V",
-            activity.object());
-    }
-}
-
-void stopExportService() {
-    QJniObject activity = QNativeInterface::QAndroidApplication::context();
-    if (activity.isValid()) {
-        QJniObject::callStaticMethod<void>(
-            "fm/magiclantern/forum/MyJavaHelper",
-            "stopExportService",
-            "(Landroid/content/Context;)V",
-            activity.object());
-    }
-}
-
-// I tried to use `WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON`
-// but I got the error below
-// android.view.ViewRootImpl$CalledFromWrongThreadException:
-// Only the original thread that created a view hierarchy can touch its views.
-// Expected: main Calling: qtMainLoopThread
-void triggerBrightWakeLock() {
-    QJniObject activity = QNativeInterface::QAndroidApplication::context();
-    QJniObject powerManager = activity.callObjectMethod(
-        "getSystemService",
-        "(Ljava/lang/String;)Ljava/lang/Object;",
-        QJniObject::fromString("power").object());
-
-    QJniObject packageName = activity.callObjectMethod<jstring>("getPackageName");
-    QString wakeLockTag = QString("org.qtproject.example::WakeLock");
-
-    wakeLock = powerManager.callObjectMethod(
-        "newWakeLock",
-        "(ILjava/lang/String;)Landroid/os/PowerManager$WakeLock;",
-        0x0000000a | 0x20000000, // PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE
-        QJniObject::fromString(wakeLockTag).object());
-
-    if (wakeLock.isValid()) {
-        wakeLock.callMethod<void>("acquire", "()V");
-        qDebug() << "Wake lock acquired with tag:" << wakeLockTag;
-    }
-}
-
-void triggerDimWakeLock() {
-    QJniObject activity = QNativeInterface::QAndroidApplication::context();
-    QJniObject powerManager = activity.callObjectMethod(
-        "getSystemService",
-        "(Ljava/lang/String;)Ljava/lang/Object;",
-        QJniObject::fromString("power").object());
-
-    QJniObject packageName = activity.callObjectMethod<jstring>("getPackageName");
-    QString wakeLockTag = QString("org.qtproject.example::WakeLock");
-
-    wakeLock = powerManager.callObjectMethod(
-        "newWakeLock",
-        "(ILjava/lang/String;)Landroid/os/PowerManager$WakeLock;",
-        0x00000006 | 0x20000000, // PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE
-        QJniObject::fromString(wakeLockTag).object());
-
-    if (wakeLock.isValid()) {
-        wakeLock.callMethod<void>("acquire", "()V");
-        qDebug() << "Wake lock acquired with tag:" << wakeLockTag;
-    }
-}
-
-void releaseWakeLock() {
-    if (wakeLock.isValid()) {
-        wakeLock.callMethod<void>("release", "()V");
-        wakeLock = QJniObject();  // Clear the wake lock
-    }
-}
-
-void checkAppUpdate() {
-    QJniObject activity = QNativeInterface::QAndroidApplication::context();
+qint64 getFreeSpaceAndroid(const QString &contentUri) {
+    QJniObject activity = QJniObject::callStaticObjectMethod(
+        "org/qtproject/qt/android/QtNative", "activity", "()Landroid/app/Activity;");
 
     if (!activity.isValid()) {
-        qWarning("Failed to retrieve Android activity context");
-        return;
+        return -1;
     }
 
-    QJniObject updateManager = QJniObject("fm/magiclantern/forum/UpdateManager",
-                                          "(Landroid/app/Activity;)V",
-                                          activity.object<jobject>());
+    jlong freeSpace = QJniObject::callStaticMethod<jlong>(
+        "fm/magiclantern/forum/MyJavaHelper",
+        "getFreeSpace",
+        "(Landroid/content/Context;Ljava/lang/String;)J",
+        activity.object(),
+        QJniObject::fromString(contentUri).object());
 
-    if (updateManager.isValid()) {
-        updateManager.callMethod<void>("checkForUpdate");
-    } else {
-        qWarning("Failed to create update manager");
-    }
+    return static_cast<qint64>(freeSpace);
 }
