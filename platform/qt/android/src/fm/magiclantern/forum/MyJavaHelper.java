@@ -1,4 +1,4 @@
-package fm.magiclantern.forum;  // Use the same package as in AndroidManifest.xml
+package fm.magiclantern.forum;
 
 import android.content.Context;
 import android.content.ContentResolver;

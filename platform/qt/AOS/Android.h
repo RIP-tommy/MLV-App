@@ -10,5 +10,6 @@
 void requestAllFilesAccess();
 QString createFolderInAndroidUri(const QString &parentUri, const QString &folderName);
 qint64 getFreeSpaceAndroid(const QString &contentUri);
+void keepScreenOn(bool on);
 
 #endif // ANDROID_H

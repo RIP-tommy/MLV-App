@@ -8,14 +8,12 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include "math.h"
-#ifdef Q_OS_ANDROID
-#include "AOS/Android.h"
-#endif
 
 #include <QMessageBox>
 #include <QThread>
 #include <QTime>
 #include <QSettings>
+#include <QGuiApplication>
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
 #include <QDesktopWidget>
 #else
@@ -38,6 +36,10 @@
 #ifdef Q_OS_MACX
 #include "AvfLibWrapper.h"
 #include "MainWindow.h"
+#endif
+
+#ifdef Q_OS_ANDROID
+#include "AOS/Android.h"
 #endif
 
 #include "SystemMemory.h"
@@ -64,9 +66,6 @@
 #include "StatusFpmDialog.h"
 #include "RenameDialog.h"
 #include "CustomPopen.h"
-
-#include <QJniObject>
-#include <QJniEnvironment>
 
 /* spaceTag argument options: ffmpeg color space tag number compliant */
 #define SPACETAG_REC709   1   /* rec709 color space */
@@ -203,6 +202,7 @@ MainWindow::MainWindow(int &argc, char **argv, QWidget *parent) :
 #ifdef Q_OS_ANDROID
     //Request all files access permission for android
     requestAllFilesAccess();
+    keepScreenOn(true);
 #else
     //Update check, if autocheck enabled, once a day
     QSettings set( QSettings::UserScope, "magiclantern.MLVApp", "MLVApp" );

@@ -836,7 +836,11 @@ static int load_mapp(mlvObject_t * video)
     memcpy(dot, ".MAPP\0", 6);
 
     /* open .MAPP file for reading */
+#ifdef __ANDROID__
+    FILE* mappf = openFileWithQFile(mapp_filename, "rb");
+#else
     FILE* mappf = fopen(mapp_filename, "rb");
+#endif
     if (!mappf)
     {
         DEBUG( printf("Could not open %s\n\n", mapp_filename); )
