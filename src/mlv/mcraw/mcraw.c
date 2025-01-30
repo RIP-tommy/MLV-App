@@ -70,6 +70,7 @@ struct mr_ctx_s
 
 };
 
+FILE* openFileWithQFile(const char* filePath, const char* mode);
 static int read_first_frame(mr_ctx_t *ctx);
 
 //-----------------------------------------------------------------------------
@@ -594,7 +595,11 @@ static int mr_read_index(mr_ctx_t *ctx)
 //-----------------------------------------------------------------------------
 int mr_decoder_open(mr_ctx_t *ctx, const char *filename)
 {
+#ifdef __ANDROID__
+    ctx->fd = openFileWithQFile(filename, "rb");
+#else
     ctx->fd = fopen(filename, "rb");
+#endif
 
     if (!ctx->fd)
     {

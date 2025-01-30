@@ -505,7 +505,8 @@ contains(ANDROID_TARGET_ARCH,arm64-v8a) {
     ANDROID_PACKAGE_SOURCE_DIR = \
         $$PWD/android
     SOURCES += \
-        AOS/ExportCDNG.cpp \
+        AOS/FileWrapper.cpp \
+        AOS/JavaWrapper.cpp \
         AOS/RequestPermissions.cpp
     HEADERS += \
         AOS/Android.h
@@ -517,6 +518,7 @@ contains(ANDROID_TARGET_ARCH,arm64-v8a) {
         android/gradle/wrapper/gradle-wrapper.properties \
         android/gradlew \
         android/gradlew.bat \
+        android/src/fm/magiclantern/forum/MyJavaHelper.java \
         android/res/values/libs.xml \
         android/res/xml/qtprovider_paths.xml
 }

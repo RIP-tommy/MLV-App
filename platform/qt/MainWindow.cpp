@@ -102,10 +102,6 @@ MainWindow::MainWindow(int &argc, char **argv, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-#ifdef Q_OS_ANDROID
-    //Request all files access permission for android
-    requestAllFilesAccess();
-#endif
     //Change working directory for C part
     chdir( QCoreApplication::applicationDirPath().toLatin1().data() );
     //Enable color management for macOS
@@ -199,6 +195,11 @@ MainWindow::MainWindow(int &argc, char **argv, QWidget *parent) :
                 QMessageBox::information( this, APPNAME, tr( "Installation of focus pixel map %1 successful." ).arg( QFileInfo( fileName ).fileName() ) );
         }
     }
+
+#ifdef Q_OS_ANDROID
+    //Request all files access permission for android
+    requestAllFilesAccess();
+#else
     //Update check, if autocheck enabled, once a day
     QSettings set( QSettings::UserScope, "magiclantern.MLVApp", "MLVApp" );
     QString date = set.value( "lastUpdateCheck", QString( "" ) ).toString();
@@ -206,6 +207,7 @@ MainWindow::MainWindow(int &argc, char **argv, QWidget *parent) :
     {
         QTimer::singleShot( 1000, this, SLOT( updateCheck() ) );
     }
+#endif
     //Temp invisible
     ui->label_GammaText->setVisible( false );
     ui->label_GammaVal->setVisible( false );
@@ -761,15 +763,15 @@ void MainWindow::on_actionOpen_triggered()
     for( int i = 0; i < files.size(); i++ )
     {
         QString fileName = files.at(i);
-#ifdef Q_OS_ANDROID
-        QUrl fileUrl( fileName );
-        QStringList splited = fileUrl.path().split(":");
-        QStringList loc = splited.first().split("/");
-        if (QString::compare(loc.last(), "primary") == 0) fileName = "/storage/emulated/0/" + splited.last();
-        else {
-            fileName = "/mnt/media_rw/" + loc.last() + "/" + splited.last();
-        }
-#endif
+// #ifdef Q_OS_ANDROID
+//         QUrl fileUrl( fileName );
+//         QStringList splited = fileUrl.path().split(":");
+//         QStringList loc = splited.first().split("/");
+//         if (QString::compare(loc.last(), "primary") == 0) fileName = "/storage/emulated/0/" + splited.last();
+//         else {
+//             fileName = "/mnt/media_rw/" + loc.last() + "/" + splited.last();
+//         }
+// #endif
         //Exit if not an MLV file or aborted
         if( fileName == QString( "" ) ||
             (!fileName.endsWith( ".mlv", Qt::CaseInsensitive ) &&
@@ -2771,7 +2773,6 @@ void MainWindow::startExportCdng(QString fileName)
     {
         totalFrames += m_exportQueue.at(i)->cutOut() - m_exportQueue.at(i)->cutIn() + 1;
     }
-
     //Create folders and build name schemes
     QString pathName = QFileInfo( fileName ).path();
 #ifdef Q_OS_ANDROID
@@ -2788,18 +2789,15 @@ void MainWindow::startExportCdng(QString fileName)
             .arg( getMlvTmMonth( m_pMlvObject ), 2, 10, QChar('0') )
             .arg( getMlvTmDay( m_pMlvObject ), 2, 10, QChar('0') );
 
-    //qDebug() << pathName << fileName;
-    //Create folder
-    QDir dir;
+//Create folder
 #ifdef Q_OS_ANDROID
+    pathName = pathName.left(pathName.lastIndexOf('/'));
+    pathName = createFolderInAndroidUri( pathName , fileName );
+#else
+    QDir dir;
     QUrl pathUrl( pathName );
-    QStringList splited = pathUrl.path().split(":");
-    QStringList loc = splited.first().split("/");
-    if (pathName.contains("primary")) pathName = "/storage/emulated/0/" + splited.last();
-    else pathName = "/mnt/media_rw/" + loc.last() + "/" + splited.last();
-#endif
     dir.mkpath(pathName);
-
+#endif
     //Output WAVE
     if( doesMlvHaveAudio( m_pMlvObject ) && m_audioExportEnabled )
     {
@@ -2895,9 +2893,10 @@ void MainWindow::startExportCdng(QString fileName)
         filePathNr = filePathNr.append( "/" + dngName );
 
         //Save cDNG frame
-#ifdef Q_OS_ANDROID
-        if (save_dng_frame( m_pMlvObject, cinemaDng, frame, filePathNr.toUtf8().data() ) )
-#elif defined(Q_OS_UNIX)
+// #ifdef Q_OS_ANDROID
+        // if (save_dng_frame( m_pMlvObject, cinemaDng, frame, filePathNr.toUtf8().data() ) )
+// #elif defined(Q_OS_UNIX)
+#ifdef Q_OS_UNIX
         QString properties_fn = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
         properties_fn.append("/mlv-dng-params.txt");
         if( saveDngFrame( m_pMlvObject, cinemaDng, frame, filePathNr.toUtf8().data(), properties_fn.toUtf8().data() ) )
@@ -6585,15 +6584,8 @@ void MainWindow::on_actionExport_triggered()
     //Filename proposal in dependency to actual file
     QString saveFileName = ACTIVE_RECEIPT->fileName();
     //But take the folder from last export
-#ifdef Q_OS_ANDROID
     QUrl lastExportFolderPath( m_lastExportPath );
-    QStringList splited = lastExportFolderPath.path().split(":");
-    QStringList loc = splited.first().split("/");
-    if (m_lastExportPath.contains("primary")) saveFileName = "/storage/emulated/0/" + splited.last() + "/" + QFileInfo( saveFileName ).fileName();
-    else saveFileName = "/mnt/media_rw/" + splited.last() + "/" + QFileInfo( saveFileName ).fileName();
-#else
     saveFileName = QString( "%1/%2" ).arg( m_lastExportPath ).arg( QFileInfo( saveFileName ).fileName() );
-#endif
     QString fileType;
     QString fileEnding;
     saveFileName = saveFileName.left( saveFileName.lastIndexOf( "." ) );
@@ -10759,12 +10751,21 @@ void MainWindow::listViewSessionUpdate()
 //Check if disk nearly full
 void MainWindow::checkDiskFull(QString path)
 {
+    qint64 freeSpace;
 #ifdef Q_OS_ANDROID
-    QStorageInfo disk = QStorageInfo( path );
+    QStringList parts = path.split("%3A");
+
+    if (parts[0].contains("primary")) {
+        QStorageInfo storage("/storage/emulated/0/");
+        freeSpace = storage.bytesAvailable();
+    } else {
+        freeSpace = 100000000;
+    }
 #else
     QStorageInfo disk = QStorageInfo( QFileInfo( path ).path() );
+    freeSpace = disk.bytesAvailable();
 #endif
-    if( 20 > disk.bytesAvailable()/1024/1024 )
+    if( 20 > freeSpace/1024/1024 )
     {
         QMessageBox::warning( this, APPNAME, tr( "Disk full. Export aborted." ) );
         m_exportAbortPressed = true;

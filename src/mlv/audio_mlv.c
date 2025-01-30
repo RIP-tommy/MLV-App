@@ -87,6 +87,8 @@ typedef struct {
 
 #pragma pack(pop)
 
+FILE* openFileWithQFile(const char* filePath, const char* mode);
+
 static uint64_t file_set_pos(FILE *stream, uint64_t offset, int whence)
 {
 #if defined(__WIN32)
@@ -186,7 +188,11 @@ void writeMlvAudioToWaveCut(mlvObject_t * video, char * path, uint32_t cut_in, u
     /* Get wav header */
     wave_header_t wave_header = generateMlvAudioToWaveHeader(video, wave_data_size, cut_in - 1);
 
+#ifdef __ANDROID__
+    FILE * wave_file = openFileWithQFile(path, "wb");
+#else
     FILE * wave_file = fopen(path, "wb");
+#endif
     if( !wave_file ) return;
     /* Write header */
     fwrite(&wave_header, sizeof(wave_header_t), 1, wave_file);
@@ -204,7 +210,11 @@ void writeMlvAudioToWave(mlvObject_t * video, char * path)
     /* Get wav header */
     wave_header_t wave_header = generateMlvAudioToWaveHeader(video, video->audio_size, 0);
 
+#ifdef __ANDROID__
+    FILE * wave_file = openFileWithQFile(path, "wb");
+#else
     FILE * wave_file = fopen(path, "wb");
+#endif
     if( !wave_file ) return;
     /* Write header */
     fwrite(&wave_header, sizeof(wave_header_t), 1, wave_file);

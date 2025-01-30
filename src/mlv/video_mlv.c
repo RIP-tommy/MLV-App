@@ -37,6 +37,8 @@
 #define MAX(a,b) (((a)>(b))?(a):(b))
 #define ROR32(v,a) ((v) >> (a) | (v) << (32-(a)))
 
+FILE* openFileWithQFile(const char* filePath, const char* mode);
+
 static uint64_t file_set_pos(FILE *stream, uint64_t offset, int whence)
 {
 #if defined(__WIN32)
@@ -104,13 +106,17 @@ static FILE **load_all_chunks(char *base_filename, int *entries)
     strncpy(filename, base_filename, max_name_len - 1);
     FILE **files = malloc(sizeof(FILE*));
 
+
+#ifdef __ANDROID__
+    files[0] = openFileWithQFile(filename, "rb");
+#else
     files[0] = fopen(filename, "rb");
+#endif
     if(!files[0])
     {
         free(files);
         return NULL;
     }
-
     DEBUG( printf("\nFile %s opened\n", filename); )
 
     /* get extension and check if it is a .MLV */
@@ -146,7 +152,11 @@ static FILE **load_all_chunks(char *base_filename, int *entries)
         strcpy(&filename[strlen(filename) - 2], seq_name);
 
         /* try to open */
+#ifdef __ANDROID__
+        files[*entries] = openFileWithQFile(filename, "rb");
+#else
         files[*entries] = fopen(filename, "rb");
+#endif
         if(files[*entries])
         {
             DEBUG( printf("File %s opened\n", filename); )

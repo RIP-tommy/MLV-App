@@ -13,6 +13,8 @@
 #define MAX(X, Y) (((X) > (Y)) ? (X) : (Y))
 #define LIMIT16(X) MAX(MIN(X, 65535), 0)
 
+FILE* openFileWithQFile(const char* filePath, const char* mode);
+
 //Switch here between trilinear and tetrahedral interpolation
 //#define USE_TRILIN_INT
 
@@ -70,7 +72,11 @@ int load_lut( lut_t *lut, char *filename, char *error_message )
     float inMin, inMax;
 
     FILE *fp;
+#ifdef __ANDROID__
+    fp = openFileWithQFile(filename, "r");
+#else
     fp = fopen( filename, "r" );
+#endif
 
     //Settings standard parameters, which mustn't be in cube file
     for( int i = 0; i < 3; i++ )
