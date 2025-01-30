@@ -222,9 +222,6 @@ MainWindow::MainWindow(int &argc, char **argv, QWidget *parent) :
     //ui->comboBoxProcessingGamut->setVisible( false );
     ui->label_TonemappingFunction->setVisible( false );
     ui->comboBoxTonemapFct->setVisible( false );
-
-    //Request all files access permission for android
-    requestAllFilesAccess();
 }
 
 //Destructor
@@ -755,6 +752,10 @@ void MainWindow::on_actionOpen_triggered()
 {
     //Stop playback if active
     ui->actionPlay->setChecked( false );
+
+    QString path = QFileInfo( m_lastMlvOpenFileName ).absolutePath();
+    if( !QDir( path ).exists() ) path = QDir::homePath();
+
     //Open File Dialog
     QStringList files = QFileDialog::getOpenFileNames( this, tr("Open one or more MLV..."),
                                                        path,
@@ -763,7 +764,6 @@ void MainWindow::on_actionOpen_triggered()
     if( files.empty() ) return;
 
     m_inOpeningProcess = true;
-
 
     for( int i = 0; i < files.size(); i++ )
     {
@@ -3012,9 +3012,6 @@ void MainWindow::startExportCdng(QString fileName)
         filePathNr = filePathNr.append( "/" + dngName );
 
         //Save cDNG frame
-// #ifdef Q_OS_ANDROID
-        // if (save_dng_frame( m_pMlvObject, cinemaDng, frame, filePathNr.toUtf8().data() ) )
-// #elif defined(Q_OS_UNIX)
 #ifdef Q_OS_UNIX
         QString properties_fn = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
         properties_fn.append("/mlv-dng-params.txt");
