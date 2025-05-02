@@ -7,9 +7,13 @@
 #include <QDebug>
 #include <QString>
 
-void requestAllFilesAccess();
 QString createFolderInAndroidUri(const QString &parentUri, const QString &folderName);
-qint64 getFreeSpaceAndroid(const QString &contentUri);
-void keepScreenOn(bool on);
+qint8 runExport(const QString &inputFile, const QString &outputFile);
+bool checkFFmpeg();
+bool runFFmpegCmd(QString cmd, QString outputFile);
+QString getFFMpegPipe();
+bool runFFmpegCmdInPipe(QString tmpImgPath, QString cmd, QString pipe);
+void closeFFmpegPipe(QString pipe);
+void requestAllFilesAccess();
 
 #endif // ANDROID_H

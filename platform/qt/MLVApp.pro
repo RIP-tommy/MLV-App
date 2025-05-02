@@ -506,8 +506,7 @@ contains(ANDROID_TARGET_ARCH,arm64-v8a) {
         $$PWD/android
     SOURCES += \
         AOS/FileWrapper.cpp \
-        AOS/JavaWrapper.cpp \
-        AOS/RequestPermissions.cpp
+        AOS/JavaWrapper.cpp
     HEADERS += \
         AOS/Android.h
     DISTFILES += \

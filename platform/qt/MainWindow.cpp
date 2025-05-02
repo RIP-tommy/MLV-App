@@ -201,7 +201,6 @@ MainWindow::MainWindow(int &argc, char **argv, QWidget *parent) :
 #ifdef Q_OS_ANDROID
     //Request all files access permission for android
     requestAllFilesAccess();
-    keepScreenOn(true);
 #else
     //Update check, if autocheck enabled, once a day
     QSettings set( QSettings::UserScope, "magiclantern.MLVApp", "MLVApp" );
@@ -1723,14 +1722,18 @@ void MainWindow::startExportPipe(QString fileName)
     bool staberr = false;
     //ffmpeg existing?
     {
+        bool isFFmpeg4androidReady = false;
 #if defined __linux__ && !defined APP_IMAGE
+    #if defined(Q_OS_ANDROID)
+        isFFmpeg4androidReady = checkFFmpeg();
+    #endif
         QFile *file = new QFile( "ffmpeg" );
 #elif __WIN32__
         QFile *file = new QFile( "ffmpeg.exe" );
 #else
         QFile *file = new QFile( "ffmpeg" );
 #endif
-        if( !file->exists() )
+        if( !file->exists() && !isFFmpeg4androidReady )
         {
             QMessageBox::critical( this, APPNAME, tr( "Can't access encoder ffmpeg from MLVApp application path." ) );
             exportAbort();
@@ -1808,6 +1811,9 @@ void MainWindow::startExportPipe(QString fileName)
     if( m_audioExportEnabled && doesMlvHaveAudio( m_pMlvObject ) )
     {
 #ifdef Q_OS_UNIX
+    #if defined(Q_OS_ANDROID)
+        wavFileName = QString( "%1/temp.wav" ).arg( QStandardPaths::writableLocation( QStandardPaths::AppDataLocation) );
+    #endif
         writeMlvAudioToWaveCut( m_pMlvObject, wavFileName.toUtf8().data(), m_exportQueue.first()->cutIn(), m_exportQueue.first()->cutOut() );
 #else
         writeMlvAudioToWaveCut( m_pMlvObject, wavFileName.toLatin1().data(), m_exportQueue.first()->cutIn(), m_exportQueue.first()->cutOut() );
@@ -1938,8 +1944,13 @@ void MainWindow::startExportPipe(QString fileName)
 #ifdef Q_OS_WIN
     QString vidstabFile = QString( "\"tmp_transform_vectors.trf\"" );
 #elif defined( Q_OS_LINUX )
-    QString vidstabFile = QString( "\"%1/tmp_transform_vectors.trf\"" )
+    #if defined( Q_OS_ANDROID )
+        QString vidstabFile = QString( "\"%1/tmp_transform_vectors.trf\"" )
+                .arg( QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) );
+    #else
+        QString vidstabFile = QString( "\"%1/tmp_transform_vectors.trf\"" )
             .arg( QFileInfo( m_exportQueue.first()->fileName() ).absolutePath() );
+    #endif
 #else
     QString vidstabFile = QString( "\"%1/tmp_transform_vectors.trf\"" ).arg( QCoreApplication::applicationDirPath() );
 #endif
@@ -2046,7 +2057,11 @@ void MainWindow::startExportPipe(QString fileName)
 
     //FFMpeg export
 #if defined __linux__ && !defined APP_IMAGE
-    QString program = QString( "ffmpeg" );
+    #if defined(Q_OS_ANDROID)
+        QString program = QString( "" );
+    #else
+        QString program = QString( "ffmpeg" );
+    #endif
 #elif __WIN32__
     QString program = QString( "ffmpeg" );
 #else
@@ -2088,12 +2103,26 @@ void MainWindow::startExportPipe(QString fileName)
                         .arg( m_exportQueue.first()->vidStabShakiness() )
                         .arg( m_exportQueue.first()->vidStabAccuracy() );
         }
-
+    #ifdef Q_OS_ANDROID
+        QString appPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+        QString tmpDirPath = appPath + "/tmp";
+        QDir tmpDir( tmpDirPath );
+        if ( !tmpDir.exists() ) {
+            tmpDir.mkpath( tmpDirPath );
+        }
+        stabCmd.replace("-i -", QString ("-i %1/frame_%06d.raw").arg( tmpDirPath ));
+        stabCmd.replace(stabCmd.indexOf("-f rawvideo"), 11, "");
+    #else
         //Try to open pipe
         FILE *pPipeStab;
-        //qDebug() << "Call ffmpeg:" << stabCmd;
+    #endif
+        // qDebug() << "Call ffmpeg:" << stabCmd;
     #ifdef Q_OS_UNIX
-        if( !( pPipeStab = popen( stabCmd.toUtf8().data(), "w" ) ) )
+        #if defined(Q_OS_ANDROID)
+            if( !checkFFmpeg() )
+        #else
+            if( !( pPipeStab = popen( stabCmd.toUtf8().data(), "w" ) ) )
+        #endif
     #else
         if( !( pPipeStab = CustomPopen( stabCmd.toLatin1().data(), "wb" ) ) )
     #endif
@@ -2121,6 +2150,16 @@ void MainWindow::startExportPipe(QString fileName)
             //Get all pictures and send to pipe
             for( uint32_t i = (m_exportQueue.first()->cutIn() - 1); i < m_exportQueue.first()->cutOut(); i++ )
             {
+#ifdef Q_OS_ANDROID
+                    QString tmpFilePath = QString( "%1/frame_%2.raw" ).arg( tmpDirPath ).arg( i, 6, 10, QChar('0') );
+                    QFile tmpImg( tmpFilePath );
+                    // Reopen file with truncate for next frame
+                    if ( !tmpImg.open( QIODevice::WriteOnly | QIODevice::Truncate ) ) {
+                        QMessageBox::critical(this, tr("File export failed"),
+                                    tr("Could not reopen temp file: %1").arg(tmpFilePath));
+                        break;
+                    }
+#endif
                 if( m_codecProfile == CODEC_TIFF && m_codecOption == CODEC_TIFF_AVG && i > 128 ) break;
 
                 if( scaled )
@@ -2143,8 +2182,14 @@ void MainWindow::startExportPipe(QString fileName)
                                                3, 0, &vars );
 
                     //Write to pipe
+                #ifdef Q_OS_ANDROID
+                    tmpImg.write(reinterpret_cast<const char*>(imgBufferScaled),
+                                 sizeof(uint16_t) * width * height * 3);
+                    tmpImg.close();
+                #else
                     fwrite(imgBufferScaled, sizeof( uint16_t ), width * height * 3, pPipeStab);
                     fflush(pPipeStab);
+                #endif
                 }
                 else
                 {
@@ -2154,8 +2199,14 @@ void MainWindow::startExportPipe(QString fileName)
                     m_pRenderThread->unlock();
 
                     //Write to pipe
+                #ifdef Q_OS_ANDROID
+                    tmpImg.write(reinterpret_cast<const char*>(imgBuffer),
+                                 sizeof(uint16_t) * frameSize);
+                    tmpImg.close();
+                #else
                     fwrite(imgBuffer, sizeof( uint16_t ), frameSize, pPipeStab);
                     fflush(pPipeStab);
+                #endif
                 }
 
                 //Set Status
@@ -2170,11 +2221,16 @@ void MainWindow::startExportPipe(QString fileName)
                 if( m_exportAbortPressed ) break;
             }
             //Close pipe
+#ifdef Q_OS_ANDROID
+            runFFmpegCmd(program.toUtf8(), "");
+            tmpDir.removeRecursively();
+#else
             if( pclose( pPipeStab ) != 0 )
             {
                 staberr = true;
                 QMessageBox::critical( this, tr( "File export failed" ), tr( "FFmpeg closed unexpectedly during stabilization.\n\nFile %1 was not exported completely." ).arg( fileName ) );
             }
+#endif
             free( imgBufferScaled );
             free( imgBuffer );
         }
@@ -2625,11 +2681,29 @@ void MainWindow::startExportPipe(QString fileName)
 
     if( ( m_exportQueue.first()->vidStabEnabled() && staberr == false ) || !m_exportQueue.first()->vidStabEnabled() )
     {
+#ifdef Q_OS_ANDROID
+        QString appPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+        QString r = program.remove("\"");
+        QStringList splitedCmd = r.split("content://");
+        program = splitedCmd.first();
+        QString tmpDirPath = appPath + "/tmp";
+        QDir tmpDir( tmpDirPath );
+        if ( !tmpDir.exists() ) {
+            tmpDir.mkpath( tmpDirPath );
+        }
+        program.replace(program.indexOf("-i -"), 4, QString ("-i %1/frame_%06d.raw").arg( tmpDirPath ));
+        program.replace(program.indexOf("-f rawvideo"), 11, "");
+#else
         //Try to open pipe
         FILE *pPipe;
-        //qDebug() << "Call ffmpeg:" << program;
+#endif
+        // qDebug() << "Call ffmpeg:" << program;
 #ifdef Q_OS_UNIX
+    #if defined(Q_OS_ANDROID)
+        if( !checkFFmpeg() )
+    #else
         if( !( pPipe = popen( program.toUtf8().data(), "w" ) ) )
+    #endif
 #else
     if( !( pPipe = CustomPopen( program.toLatin1().data(), "wb" ) ) )
 #endif
@@ -2658,7 +2732,16 @@ void MainWindow::startExportPipe(QString fileName)
             for( uint32_t i = (m_exportQueue.first()->cutIn() - 1); i < m_exportQueue.first()->cutOut(); i++ )
             {
                 if( m_codecProfile == CODEC_TIFF && m_codecOption == CODEC_TIFF_AVG && i > 128 ) break;
-
+#ifdef Q_OS_ANDROID
+                    QString tmpFilePath = QString( "%1/frame_%2.raw" ).arg( tmpDirPath ).arg( i, 6, 10, QChar('0') );
+                    QFile tmpImg( tmpFilePath );
+                    // Reopen file with truncate for next frame
+                    if ( !tmpImg.open( QIODevice::WriteOnly | QIODevice::Truncate ) ) {
+                        QMessageBox::critical(this, tr("File export failed"),
+                                    tr("Could not reopen temp file: %1").arg(tmpFilePath));
+                        break;
+                    }
+#endif
                 if( scaled )
                 {
                     //Get picture, and lock render thread... there can only be one!
@@ -2679,8 +2762,15 @@ void MainWindow::startExportPipe(QString fileName)
                                                3, 0, &vars );
 
                     //Write to pipe
+#ifdef Q_OS_ANDROID
+                    tmpImg.write(reinterpret_cast<const char*>(imgBufferScaled),
+                                 sizeof(uint16_t) * width * height * 3);
+                    tmpImg.close();
+
+#else
                     fwrite(imgBufferScaled, sizeof( uint16_t ), width * height * 3, pPipe);
                     fflush(pPipe);
+#endif
                 }
                 else
                 {
@@ -2690,8 +2780,14 @@ void MainWindow::startExportPipe(QString fileName)
                     m_pRenderThread->unlock();
 
                     //Write to pipe
+#ifdef Q_OS_ANDROID
+                    tmpImg.write(reinterpret_cast<const char*>(imgBuffer),
+                                 sizeof(uint16_t) * frameSize);
+                    tmpImg.close();
+#else
                     fwrite(imgBuffer, sizeof( uint16_t ), frameSize, pPipe);
                     fflush(pPipe);
+#endif
                 }
 
                 //Set Status
@@ -2715,10 +2811,15 @@ void MainWindow::startExportPipe(QString fileName)
                 if( m_exportAbortPressed ) break;
             }
             //Close pipe
+#ifdef Q_OS_ANDROID
+            runFFmpegCmd(program.toUtf8(), "content://" + splitedCmd.last());
+            tmpDir.removeRecursively();
+#else
             if( pclose( pPipe ) != 0 )
             {
                 QMessageBox::critical( this, tr( "File export failed" ), tr( "FFmpeg closed unexpectedly during export.\n\nFile %1 was not exported completely." ).arg( fileName ) );
             }
+#endif
             free( imgBufferScaled );
             free( imgBuffer );
         }
@@ -2898,12 +2999,15 @@ void MainWindow::startExportCdng(QString fileName)
         filePathNr = filePathNr.append( "/" + dngName );
 
         //Save cDNG frame
-#ifdef Q_OS_UNIX
+#ifdef Q_OS_ANDROID
+        QString properties_fn = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+#else
         QString properties_fn = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+#endif
+#ifdef Q_OS_UNIX
         properties_fn.append("/mlv-dng-params.txt");
         if( saveDngFrame( m_pMlvObject, cinemaDng, frame, filePathNr.toUtf8().data(), properties_fn.toUtf8().data() ) )
 #else
-        QString properties_fn = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
         properties_fn.append("\\mlv-dng-params.txt");
         if( saveDngFrame( m_pMlvObject, cinemaDng, frame, filePathNr.toLatin1().data(), properties_fn.toLatin1().data() ) )
 #endif
