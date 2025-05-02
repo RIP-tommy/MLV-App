@@ -6689,12 +6689,16 @@ void MainWindow::on_actionExport_triggered()
 
     //Filename proposal in dependency to actual file
     QString saveFileName = ACTIVE_RECEIPT->fileName();
+#ifdef Q_OS_ANDROID
+    saveFileName = QFileInfo( saveFileName ).baseName();
+#else
     //But take the folder from last export
     QUrl lastExportFolderPath( m_lastExportPath );
     saveFileName = QString( "%1/%2" ).arg( m_lastExportPath ).arg( QFileInfo( saveFileName ).fileName() );
+    saveFileName = saveFileName.left( saveFileName.lastIndexOf( "." ) );
+#endif
     QString fileType;
     QString fileEnding;
-    saveFileName = saveFileName.left( saveFileName.lastIndexOf( "." ) );
     if( m_codecProfile == CODEC_AVI
      || m_codecProfile == CODEC_MJPEG
      || m_codecProfile == CODEC_FFVHUFF )
