@@ -396,6 +396,7 @@ RESOURCES += \
 DISTFILES += \
     Info.plist \
     MLVAPP.ico \
+    android/src/fm/magiclantern/forum/UpdateManager.java \
     darkstyle/darkstyle.qss \
     darkstyle/darkstyleOSX.qss \
     mlvapp.desktop

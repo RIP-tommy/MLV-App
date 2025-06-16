@@ -2,6 +2,9 @@
 #include <QJniEnvironment>
 #include <QCoreApplication>
 
+// For keeping screen on
+QJniObject wakeLock;
+
 void requestAllFilesAccess() {
     // Check If all files permission is already granted
     if (QJniObject::callStaticMethod<jboolean>(
@@ -155,5 +158,80 @@ void stopExportService() {
             "stopExportService",
             "(Landroid/content/Context;)V",
             activity.object());
+    }
+}
+
+// I tried to use `WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON`
+// but I got the error below
+// android.view.ViewRootImpl$CalledFromWrongThreadException:
+// Only the original thread that created a view hierarchy can touch its views.
+// Expected: main Calling: qtMainLoopThread
+void triggerBrightWakeLock() {
+    QJniObject activity = QNativeInterface::QAndroidApplication::context();
+    QJniObject powerManager = activity.callObjectMethod(
+        "getSystemService",
+        "(Ljava/lang/String;)Ljava/lang/Object;",
+        QJniObject::fromString("power").object());
+
+    QJniObject packageName = activity.callObjectMethod<jstring>("getPackageName");
+    QString wakeLockTag = QString("org.qtproject.example::WakeLock");
+
+    wakeLock = powerManager.callObjectMethod(
+        "newWakeLock",
+        "(ILjava/lang/String;)Landroid/os/PowerManager$WakeLock;",
+        0x0000000a | 0x20000000, // PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE
+        QJniObject::fromString(wakeLockTag).object());
+
+    if (wakeLock.isValid()) {
+        wakeLock.callMethod<void>("acquire", "()V");
+        qDebug() << "Wake lock acquired with tag:" << wakeLockTag;
+    }
+}
+
+void triggerDimWakeLock() {
+    QJniObject activity = QNativeInterface::QAndroidApplication::context();
+    QJniObject powerManager = activity.callObjectMethod(
+        "getSystemService",
+        "(Ljava/lang/String;)Ljava/lang/Object;",
+        QJniObject::fromString("power").object());
+
+    QJniObject packageName = activity.callObjectMethod<jstring>("getPackageName");
+    QString wakeLockTag = QString("org.qtproject.example::WakeLock");
+
+    wakeLock = powerManager.callObjectMethod(
+        "newWakeLock",
+        "(ILjava/lang/String;)Landroid/os/PowerManager$WakeLock;",
+        0x00000006 | 0x20000000, // PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE
+        QJniObject::fromString(wakeLockTag).object());
+
+    if (wakeLock.isValid()) {
+        wakeLock.callMethod<void>("acquire", "()V");
+        qDebug() << "Wake lock acquired with tag:" << wakeLockTag;
+    }
+}
+
+void releaseWakeLock() {
+    if (wakeLock.isValid()) {
+        wakeLock.callMethod<void>("release", "()V");
+        wakeLock = QJniObject();  // Clear the wake lock
+    }
+}
+
+void checkAppUpdate() {
+    QJniObject activity = QNativeInterface::QAndroidApplication::context();
+
+    if (!activity.isValid()) {
+        qWarning("Failed to retrieve Android activity context");
+        return;
+    }
+
+    QJniObject updateManager = QJniObject("fm/magiclantern/forum/UpdateManager",
+                                          "(Landroid/app/Activity;)V",
+                                          activity.object<jobject>());
+
+    if (updateManager.isValid()) {
+        updateManager.callMethod<void>("checkForUpdate");
+    } else {
+        qWarning("Failed to create update manager");
     }
 }

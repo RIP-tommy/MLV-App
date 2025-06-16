@@ -15,5 +15,8 @@ QString getFFMpegPipe();
 bool runFFmpegCmdInPipe(QString tmpImgPath, QString cmd, QString pipe);
 void closeFFmpegPipe(QString pipe);
 void requestAllFilesAccess();
+void triggerBrightWakeLock();
+void releaseWakeLock();
+void triggerDimWakeLock();
 
 #endif // ANDROID_H

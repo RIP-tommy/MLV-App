@@ -200,7 +200,7 @@ MainWindow::MainWindow(int &argc, char **argv, QWidget *parent) :
 
 #ifdef Q_OS_ANDROID
     //Request all files access permission for android
-    requestAllFilesAccess();
+    // requestAllFilesAccess();
 #else
     //Update check, if autocheck enabled, once a day
     QSettings set( QSettings::UserScope, "magiclantern.MLVApp", "MLVApp" );
@@ -6678,6 +6678,9 @@ void MainWindow::on_actionGoto_First_Frame_triggered()
 //Export clip
 void MainWindow::on_actionExport_triggered()
 {
+#ifdef Q_OS_ANDROID
+    triggerDimWakeLock();
+#endif
     //Stop playback if active
     ui->actionPlay->setChecked( false );
 
@@ -8465,6 +8468,9 @@ void MainWindow::exportHandler( void )
             //rendered output
             startExportPipe( m_exportQueue.first()->exportFileName() ); //Pipe export
         }
+#ifdef Q_OS_ANDROID
+        releaseWakeLock();
+#endif
         return;
     }
     //Else if all planned exports are ready
@@ -8491,12 +8497,18 @@ void MainWindow::exportHandler( void )
 
         //Caching is in which state? Set it!
         if( ui->actionCaching->isChecked() ) on_actionCaching_triggered();
+#ifdef Q_OS_ANDROID
+        releaseWakeLock();
+#endif
     }
 }
 
 //Play button pressed
 void MainWindow::on_actionPlay_triggered(bool checked)
 {
+#ifdef Q_OS_ANDROID
+    if (checked) triggerBrightWakeLock();
+#endif
     //Last frame? Go to first frame!
     if( checked && ui->horizontalSliderPosition->value()+1 >= ui->spinBoxCutOut->value() )
     {
@@ -8527,8 +8539,12 @@ void MainWindow::on_actionPlay_triggered(bool checked)
 void MainWindow::on_actionPlay_toggled(bool checked)
 {
     //When stopping, debayer selection has to come in right order from render thread (extra-invitation)
-    if( !checked ) m_playbackStopped = true;
-
+    if( !checked ) {
+        m_playbackStopped = true;
+#ifdef Q_OS_ANDROID
+        releaseWakeLock();
+#endif
+    }
     selectDebayerAlgorithm();
 }
 

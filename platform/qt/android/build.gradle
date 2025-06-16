@@ -22,6 +22,7 @@ dependencies {
     //noinspection GradleDependency
     implementation 'androidx.core:core:1.13.1'
     implementation 'com.arthenica:smart-exception-java:0.2.1'
+    implementation 'com.google.android.play:app-update:2.1.0'
 }
 
 android {
