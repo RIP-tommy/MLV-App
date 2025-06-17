@@ -154,7 +154,7 @@ SOURCES += \
     ../../src/mlv/llrawproc/patternnoise.c \
     ../../src/mlv/llrawproc/chroma_smooth.c \
     ../../src/mlv/llrawproc/hist.c \
-    ../../src/mlv/camid/camera_id.c \   
+    ../../src/mlv/camid/camera_id.c \
     ../../src/mlv/mcraw/mcraw.c \
     ../../src/mlv/mcraw/RawData.cpp \
     ../../src/mlv/mcraw/RawData_Legacy.cpp \
@@ -278,7 +278,6 @@ HEADERS += MainWindow.h \
     ../../src/processing/image_profile.h \
     ../../src/processing/cube_lut.h \
     ../../src/processing/denoiser/denoiser_2d_median.h \
-    AOS/Android.h \
     ClipInformation.h \
     CustomPopen.h \
     InfoDialog.h \
@@ -398,15 +397,6 @@ RESOURCES += \
 DISTFILES += \
     Info.plist \
     MLVAPP.ico \
-    android/AndroidManifest.xml \
-    android/build.gradle \
-    android/gradle.properties \
-    android/gradle/wrapper/gradle-wrapper.jar \
-    android/gradle/wrapper/gradle-wrapper.properties \
-    android/gradlew \
-    android/gradlew.bat \
-    android/res/values/libs.xml \
-    android/res/xml/qtprovider_paths.xml \
     darkstyle/darkstyle.qss \
     darkstyle/darkstyleOSX.qss \
     mlvapp.desktop
@@ -511,15 +501,20 @@ linux-g++ {
 #    INSTALLS += target
 #}
 
-contains(ANDROID_TARGET_ARCH,arm64-v8a) {
-    ANDROID_PACKAGE_SOURCE_DIR = \
-        $$PWD/android
+contains(ANDROID_TARGET_ARCH, arm64-v8a) {
+    DEFINES += __arm64
+    INCLUDEPATH += $$PWD/AOS
+
+    ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+
     SOURCES += \
         AOS/FileWrapper.cpp \
         AOS/JavaWrapper.cpp \
         AOS/RequestPermissions.cpp
+
     HEADERS += \
         AOS/Android.h
+
     DISTFILES += \
         android/AndroidManifest.xml \
         android/build.gradle \
