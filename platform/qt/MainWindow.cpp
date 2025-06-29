@@ -769,19 +769,10 @@ void MainWindow::on_actionOpen_triggered()
     {
         QString fileName = files.at(i);
 
-#ifdef Q_OS_ANDROID
-        QUrl fileUrl( fileName );
-        QStringList splited = fileUrl.path().split(":");
-        QStringList loc = splited.first().split("/");
-        if (QString::compare(loc.last(), "primary") == 0) fileName = "/storage/emulated/0/" + splited.last();
-        else {
-            fileName = "/mnt/media_rw/" + loc.last() + "/" + splited.last();
-        }
-#endif
         //Exit if not an MLV file or aborted
         if( fileName == QString( "" ) ||
-            (!fileName.endsWith( ".mlv", Qt::CaseInsensitive ) &&
-             !fileName.endsWith( ".mcraw", Qt::CaseInsensitive )) ) continue;
+            !(fileName.endsWith( ".mlv", Qt::CaseInsensitive ) ||
+              fileName.endsWith( ".mcraw", Qt::CaseInsensitive )) ) continue;
 
         importNewMlv( fileName );
     }
@@ -3092,6 +3083,7 @@ void MainWindow::startExportMlv(QString fileName)
     pathName = pathName.append( "/%1" ).arg( fileName );
 
     /* open .MLV file for writing */
+
 #ifdef Q_OS_UNIX
     FILE* mlvOut = fopen(pathName.toUtf8().data(), "wb");
 #else
