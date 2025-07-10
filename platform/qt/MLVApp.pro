@@ -398,15 +398,6 @@ RESOURCES += \
 DISTFILES += \
     Info.plist \
     MLVAPP.ico \
-    android/AndroidManifest.xml \
-    android/build.gradle \
-    android/gradle.properties \
-    android/gradle/wrapper/gradle-wrapper.jar \
-    android/gradle/wrapper/gradle-wrapper.properties \
-    android/gradlew \
-    android/gradlew.bat \
-    android/res/values/libs.xml \
-    android/res/xml/qtprovider_paths.xml \
     darkstyle/darkstyle.qss \
     darkstyle/darkstyleOSX.qss \
     mlvapp.desktop
@@ -534,6 +525,7 @@ contains(ANDROID_TARGET_ARCH, arm64-v8a) {
         android/gradlew \
         android/gradlew.bat \
         android/src/fm/magiclantern/forum/MyJavaHelper.java \
+        android/src/fm/magiclantern/forum/UpdateManager.java \
         android/res/values/libs.xml \
         android/res/xml/qtprovider_paths.xml
 }

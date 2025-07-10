@@ -6,7 +6,7 @@ buildscript {
 
     dependencies {
         //noinspection AndroidGradlePluginVersion
-        classpath 'com.android.tools.build:gradle:7.4.1'
+        classpath 'com.android.tools.build:gradle:8.6.0'
     }
 }
 
@@ -82,7 +82,9 @@ android {
     defaultConfig {
         resConfig "en"
         minSdkVersion qtMinSdkVersion
-        targetSdkVersion qtTargetSdkVersion
+        targetSdkVersion 35
         ndk.abiFilters = qtTargetAbiList.split(",")
+        versionCode 2
+        versionName "1.1"
     }
 }
